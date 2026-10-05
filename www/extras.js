@@ -1,6 +1,7 @@
-(()=>{const Z={s:1,x:0,y:0},$i=id=>document.getElementById(id);let g=null,g1=null,sup=0,lp=0,lt=0,lastTap=0;
+(()=>{if(window.CanvasRenderingContext2D&&!CanvasRenderingContext2D.prototype.roundRect)CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){r=Math.max(0,Math.min(Array.isArray(r)?r[0]||0:r||0,w/2,h/2));this.moveTo(x+r,y);this.arcTo(x+w,y,x+w,y+h,r);this.arcTo(x+w,y+h,x,y+h,r);this.arcTo(x,y+h,x,y,r);this.arcTo(x,y,x+w,y,r);this.closePath()};
+const Z={s:1,x:0,y:0},$i=id=>document.getElementById(id);let g=null,g1=null,sup=0,lp=0,lt=0,lastTap=0;
 const lim=()=>{const w=$i('mapsvg');if(!w)return;Z.s=Math.max(1,Math.min(8,Z.s));Z.x=Math.min(0,Math.max(w.clientWidth*(1-Z.s),Z.x));Z.y=Math.min(0,Math.max(w.clientHeight*(1-Z.s),Z.y))};
-const rs=()=>{Z.s=1;Z.x=Z.y=0;ap()};
+const rs=()=>{Z.s=1;Z.x=Z.y=0;ap()};window.zoomBack=()=>{if(Z.s>1.001){rs();return true}return false};
 function ap(){const m=$i('msvg'),w=$i('mapsvg');if(!m||!w)return;const z=Z.s>1.001;m.style.transformOrigin='0 0';m.style.transform=z?`translate3d(${Z.x}px,${Z.y}px,0) scale(${Z.s})`:'';w.style.touchAction=z?'none':'pan-y';let b=w.querySelector('.zr');if(z&&!b){b=document.createElement('button');b.className='zr';b.textContent='Zoom 1×';b.onclick=ev=>{ev.stopPropagation();rs()};w.append(b)}else if(!z&&b)b.remove()}
 new MutationObserver(()=>{const w=$i('mapsvg');if(w&&!w.dataset.o){w.dataset.o=1;new MutationObserver(ap).observe(w,{childList:true})}ap()}).observe(document.body,{childList:true,subtree:true});
 const hide=()=>{const q=$i('qs');q&&q.remove()};
@@ -29,5 +30,25 @@ const o=document.createElement('div');o.id='shimg';o.innerHTML=`<img src="${URL.
 /* alerta de disputa apertada (app aberto) */
 const R1=window.render;window.render=function(){R1();if(S.tab==='cfg'){const a=$i('app');a&&a.insertAdjacentHTML('beforeend',`<section class="bx"><h3>Disputa apertada</h3><p class="mut sm">Avisa quando a diferença entre os dois primeiros ficar abaixo do valor escolhido. Funciona com o app aberto.</p><select id="ma">${[['0','Desligado'],['0.5','Menos de 0,5 p.p.'],['1','Menos de 1 p.p.'],['2','Menos de 2 p.p.'],['3','Menos de 3 p.p.']].map(([v,t])=>`<option value="${v}"${String(S.ma||0)===v?' selected':''}>${t}</option>`).join('')}</select></section>`)}};
 document.addEventListener('change',e=>{if(e.target.id==='ma'){S.ma=+e.target.value;arm=1;save()}});let arm=1;
-setInterval(()=>{if(!S.ma||EM||!D)return;const r=cur();if(!r||!r.c||r.c.length<2)return;const m=r.c[0].pct-r.c[1].pct;if(m<=S.ma&&arm){arm=0;const t=`${r.nome}: diferença de ${m.toFixed(2).replace('.',',')} p.p.`,b=`${r.c[0].nome} × ${r.c[1].nome}`;toast('⚡ Disputa apertada\n'+t+'\n'+b);navigator.vibrate&&navigator.vibrate([40,40,40]);typeof notifyNow==='function'&&notifyNow('Disputa apertada',t+' · '+b)}else if(m>S.ma+.3)arm=1},4000);
+setInterval(()=>{if(!S.ma||EM||!D)return;const r=cur();if(!r||!r.c||r.c.length<2)return;const m=r.c[0].pct-r.c[1].pct;if(m<=S.ma&&arm){arm=0;const t=`${r.nome}: diferença de ${m.toFixed(2).replace('.',',')} p.p.`,b=`${r.c[0].nome} × ${r.c[1].nome}`;toast('⚡ Disputa apertada\n'+t+'\n'+b);navigator.vibrate&&navigator.vibrate([40,40,40]);typeof notifyNow==='function'&&!quiet()&&notifyNow('Disputa apertada',t+' · '+b)}else if(m>S.ma+.3)arm=1},4000);
 })();
+/* botão voltar do Android e toque na notificação (plugins nativos) */
+(()=>{const App=plug('App');
+if(App&&App.addListener)App.addListener('backButton',()=>{
+const sh=document.getElementById('shimg');if(sh){sh.remove();return}
+const q=document.getElementById('qs');if(q){q.remove();return}
+if(window.zoomBack&&window.zoomBack())return;
+if(RP){rpStop();render();return}
+if(window.mapBack&&window.mapBack())return;
+if(EM||RB){rpLive();return}
+if(S.tab!=='res'){S.tab='res';save();render();return}
+App.minimizeApp?App.minimizeApp():App.exitApp&&App.exitApp()});
+const LNp=LN();
+if(LNp&&LNp.addListener)LNp.addListener('localNotificationActionPerformed',a=>{try{const nt=(a&&a.notification)||{};let x=nt.extra;
+if(typeof x==='string'){try{x=JSON.parse(x)}catch(_){x=null}}
+if(!x||!x.cargo){const b=String(nt.body||'');x=S.favs.filter(f=>f.label&&b.includes(f.label)).sort((p,q)=>q.label.length-p.label.length)[0]||null}
+if(!x||!x.cargo)return;
+rpStop();S.cargo=x.cargo;S.regiao=x.regiao||'';S.uf=x.uf||'';S.mun=x.mun||'';S.tab='res';if(S.uf)loadMun(S.uf);sel()}catch(_){}})})();
+
+/* batimento: avisa o serviço em segundo plano que o app está aberto (evita notificação duplicada) */
+setInterval(()=>{if(document.visibilityState==='visible'&&S.al)sync()},60000);

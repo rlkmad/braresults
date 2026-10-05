@@ -11,8 +11,8 @@ function num(v) { var x = +String(v == null ? '' : v).replace(',', '.'); return 
 function pc(v) { return v.toFixed(2).replace('.', ',') + '%'; }
 async function kvGet(k, d) { try { var r = await CapacitorKV.get(k); var v = r && r.value !== undefined ? r.value : r; return v ? JSON.parse(v) : d; } catch (e) { return d; } }
 async function kvSet(k, v) { try { await CapacitorKV.set(k, JSON.stringify(v)); } catch (e) {} }
-function notify(title, body) {
-  try { CapacitorNotifications.schedule([{ id: Math.floor(Math.random() * 2000000000), title: title, body: body, scheduleAt: new Date(Date.now() + 1500) }]); } catch (e) {}
+function notify(title, body, extra) {
+  try { CapacitorNotifications.schedule([{ id: Math.floor(Math.random() * 2000000000), title: title, body: body, scheduleAt: new Date(Date.now() + 1500), extra: extra || null }]); } catch (e) {}
 }
 
 function norm(raw, f, t, ele) {
@@ -61,12 +61,12 @@ function ver(r) {
 function evs(r, st) {
   var c0 = r.c[0];
   if (!c0) return { m: [], ns: st || { lead: '', vk: 'x', ms: 0 } };
-  var v = ver(r), lead = c0.id, vk = v.k === 'eleito' ? 'e' + v.e.map(function (x) { return x.id; }).join() : v.k === '2t' ? '2t' : 'x';
+  var v = ver(r), lead = c0.id, vk = v.of && v.k === 'eleito' ? 'e' + v.e.map(function (x) { return x.id; }).join() : v.of && v.k === '2t' ? '2t' : 'x';
   var ms = [100, 90, 75, 50, 25].find(function (x) { return r.sp >= x; }) || 0, m = [], nm = r.nome + ' · ' + r.esc.nome;
   if (st) {
     if (vk !== st.vk && vk !== 'x') {
       m.push(v.k === 'eleito'
-        ? '✔ ' + nm + ': ' + v.e.map(function (c) { return c.nome; }).join(' e ') + (v.e.length > 1 ? ' eleitos' : ' eleito(a)') + (v.of ? '' : ' (projeção)')
+        ? '✔ ' + nm + ': ' + v.e.map(function (c) { return c.nome; }).join(' e ') + (v.e.length > 1 ? ' eleitos' : ' eleito(a)')
         : '⚑ ' + nm + ': vai ao 2º turno — ' + v.f.map(function (c) { return c.nome; }).join(' × '));
     } else if (st.lead && lead !== st.lead && r.cargo.indexOf('deputado') !== 0) {
       m.push('🔄 ' + nm + ': ' + c0.nome + ' assumiu a liderança');
@@ -74,6 +74,12 @@ function evs(r, st) {
     if (!m.length && ms > st.ms) m.push('📊 ' + nm + ': ' + ms + '% apurado — ' + c0.nome + ' lidera com ' + pc(c0.pct));
   }
   return { m: m, ns: { lead: lead, vk: vk, ms: ms } };
+}
+function quiet(q, d) {
+  if (!q) return false;
+  var p = String(q).split('-'), a = +p[0], b = +p[1], h = (d || new Date()).getHours();
+  if (isNaN(a) || isNaN(b) || a === b) return false;
+  return a > b ? (h >= a || h < b) : (h >= a && h < b);
 }
 function snapOf(r) {
   var a = r.tse.split(' '), d = (a[0] || '').split('/');
@@ -89,6 +95,11 @@ async function check() {
   if (!cfg || !cfg.on || !cfg.favs || !cfg.favs.length) return;
   if (cfg.ele) ELE = cfg.ele;
   var snaps = await kvGet('snaps', []), now2 = Date.now() >= T2AB;
+  var fg = !!cfg.fg && Date.now() - cfg.fg < 150000, qt = quiet(cfg.qh), pend = await kvGet('pend', []), pchg = false;
+  if (!qt && !fg && pend.length) {
+    notify('Braresults', 'Durante o horário silencioso:\n' + pend.slice(-4).map(function (p) { return p.m; }).join('\n'), pend[pend.length - 1].x);
+    pend = []; pchg = true;
+  }
   for (var i = 0; i < cfg.favs.length; i++) {
     var f = cfg.favs[i], t = now2 && (f.cargo === 'presidente' || f.cargo === 'governador') ? 2 : 1;
     try {
@@ -97,10 +108,14 @@ async function check() {
       if (ult !== r.tse) { snaps.push({ k: k, s: snapOf(r) }); await kvSet('ult:' + k, r.tse); }
       var o = evs(r, await kvGet('st:' + k, null));
       await kvSet('st:' + k, o.ns);
-      if (o.m.length) notify('Braresults', o.m.join('\n'));
+      if (o.m.length && !fg) {
+        var ex = { cargo: f.cargo, regiao: f.regiao || '', uf: f.uf || '', mun: f.mun || '' };
+        if (qt) { pend.push({ m: o.m.join('\n'), x: ex }); pchg = true; } else notify('Braresults', o.m.join('\n'), ex);
+      }
     } catch (e) {}
   }
   await kvSet('snaps', snaps.slice(-300));
+  if (pchg) await kvSet('pend', pend.slice(-20));
 }
 
 addEventListener('check', async function (resolve) { try { await check(); } catch (e) {} resolve(); });
