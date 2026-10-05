@@ -39,13 +39,22 @@ async function fetchRes(f, t) {
   return norm(await res.json(), f, t, ele);
 }
 
+// Situação do candidato: 'e' eleito, '2' vai ao 2º turno. No 1º turno de presidente/governador
+// o TSE marca os dois do 2º turno com a flag "eleito": só vale quem passou de 50% dos válidos.
+function stc(r, c, rk) {
+  if (RE2.test(c.sit || '')) return '2';
+  if (!(c.eleito || /^eleito/i.test(c.sit || ''))) return '';
+  if (!((r.cargo === 'presidente' || r.cargo === 'governador') && r.turno === 1)) return 'e';
+  if (c.pct > 50) return 'e';
+  return (rk == null ? r.c.indexOf(c) : rk) < 2 ? '2' : '';
+}
 function ver(r) {
   var c0 = r.c[0], c1 = r.c[1], c2 = r.c[2], dec = r.cargo === 'presidente' ? r.esc.t === 'br' : r.esc.t === 'uf';
   if (!dec) return { k: 'local' };
-  var el = r.c.filter(function (c) { return c.eleito || /^eleito/i.test(c.sit); });
+  var el = r.c.filter(function (c) { return stc(r, c) === 'e'; });
   if (r.cargo.indexOf('deputado') === 0) return { k: 'disp' };
   if (el.length) return { k: 'eleito', of: 1, e: el };
-  var fin = r.c.filter(function (c) { return RE2.test(c.sit); });
+  var fin = r.c.filter(function (c) { return stc(r, c) === '2'; });
   if (fin.length) return { k: '2t', of: 1, f: fin };
   if (!c0 || r.sp < 60 || r.va <= 0) return { k: 'disp' };
   var rest = r.sp >= 100 ? 0 : r.va * ((100 - r.sp) / r.sp) * 1.2;
