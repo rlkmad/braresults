@@ -9,11 +9,11 @@ d.innerHTML=`<canvas></canvas><div class="st"><i class="ring2"></i><i class="rin
 ${L('M64 64h72l10 10v100H54V74z','gl')}${L('M52 70q0-8 8-8h80q8 0 8 8')}${keys}
 </svg><div class="sc"></div><div class="yr">2026</div></div><div class="nm">Braresults</div>`;
 document.body.append(d);
-const c=d.querySelector('canvas'),g=c.getContext('2d'),W=c.width=innerWidth*devicePixelRatio,H=c.height=innerHeight*devicePixelRatio,k=devicePixelRatio,cl=['#19e06b','#ffdf00','#3b82ff','#fff'];
+const c=d.querySelector('canvas'),g=c.getContext('2d'),W=c.width=innerWidth*Math.min(devicePixelRatio,1.5),H=c.height=innerHeight*Math.min(devicePixelRatio,1.5),k=Math.min(devicePixelRatio,1.5),cl=['#19e06b','#ffdf00','#3b82ff','#fff'];
 const P=Array.from({length:70},(_,i)=>{const a=Math.random()*6.283,s=2+Math.random()*7;return{x:W/2,y:H*.44,vx:Math.cos(a)*s*k,vy:Math.sin(a)*s*k,r:(1+Math.random()*2.5)*k,c:cl[i%4],l:1}});
 const f0=performance.now();(function f(n){const t=n-f0;if(!d.isConnected)return;g.clearRect(0,0,W,H);
 if(t<2000){for(let i=0;i<2;i++){const a=Math.random()*6.283,r=Math.max(W,H)*.5;g.fillStyle=cl[i];g.globalAlpha=.5;g.beginPath();g.arc(W/2+Math.cos(a)*r*(1-t/2000),H*.44+Math.sin(a)*r*(1-t/2000),2*k,0,7);g.fill()}}
-else P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vx*=.96;p.vy=p.vy*.96+.06*k;p.l-=.012;if(p.l<=0)return;g.globalAlpha=p.l;g.fillStyle=p.c;g.shadowColor=p.c;g.shadowBlur=10*k;g.beginPath();g.arc(p.x,p.y,p.r,0,7);g.fill()});
+else P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vx*=.96;p.vy=p.vy*.96+.06*k;p.l-=.012;if(p.l<=0)return;g.globalAlpha=p.l;g.fillStyle=p.c;g.g.beginPath();g.arc(p.x,p.y,p.r,0,7);g.fill()});
 requestAnimationFrame(f)})(f0);
 let done=0;const end=()=>{if(done)return;done=1;d.classList.add('out');setTimeout(()=>d.remove(),900)};
 d.addEventListener('click',end);setTimeout(end,3700);navigator.vibrate&&setTimeout(()=>navigator.vibrate(25),2000);

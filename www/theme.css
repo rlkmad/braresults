@@ -126,3 +126,32 @@ button[data-a=rf]:active{transform:rotate(180deg) scale(.9)}
 #intro .sc{position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,#ffffff40 50%,transparent 60%);transform:translateX(-100%);animation:scn 1s ease 2.3s}
 @keyframes scn{to{transform:translateX(100%)}}
 #intro .st{animation:bt 1.4s ease-in-out 2s}@keyframes bt{40%{transform:scale(1.07)}}
+
+/* ===== v7: desempenho (só transform/opacity, sem blur/filter animado) ===== */
+html{-webkit-text-size-adjust:100%}body{touch-action:manipulation;overscroll-behavior-y:none}
+*{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+header{background:var(--bg)}nav{background:var(--bg)}
+.bx,.vd,.warn,.cd,.fv,#toast{box-shadow:0 8px 22px -10px #0008}
+body::before{animation:none!important;inset:0}
+#art{animation:none!important;opacity:.28}
+.pct,.big{filter:none!important}
+.vd.g,#lista>.cd:first-child{animation:none!important}
+#lista>.cd:first-child{background:linear-gradient(var(--bg),var(--bg)) padding-box,conic-gradient(from 200deg,var(--v),var(--b),var(--g3),var(--y),var(--v)) border-box}
+.br i:after{display:none}
+.pulse .cd,.pulse .pct{animation:none!important}
+.cd{content-visibility:auto;contain-intrinsic-size:auto 74px}
+.anim main>*{animation:up .32s var(--ease) both!important}
+.anim main>:nth-child(n){animation-delay:0s!important}
+.anim main>:nth-child(2){animation-delay:.04s!important}.anim main>:nth-child(3){animation-delay:.08s!important}.anim main>:nth-child(n+4){animation-delay:.11s!important}
+.anim .cd{animation:none!important}
+@keyframes up{from{opacity:0;transform:translate3d(0,12px,0)}}
+@keyframes mapIn{from{opacity:0;transform:scale(.97)}}
+.msv{filter:none;animation:mapIn .45s var(--ease) both}
+.msv path,.msv rect{animation:none!important;transition:fill .4s,fill-opacity .25s}
+.msv path:active{transform:none;filter:none;fill-opacity:.7}
+.msv .sel{animation:none;filter:none;stroke-width:.4}
+@media(hover:hover){.msv path:hover{filter:none}}
+nav button.on svg{filter:none}nav button svg{transition:transform .35s var(--spring)}
+#intro,#intro.out{filter:none!important}
+#intro .ln.gl{filter:none}
+@keyframes yr{from{opacity:0;letter-spacing:.6em}to{opacity:1;letter-spacing:.12em}}
