@@ -37,3 +37,4 @@ Todas as ideias de melhoria, com status, estão em [`IDEIAS.md`](IDEIAS.md).
 - Candidatos por cargo (Presidente, Governador, Senador, Dep. Federal/Estadual) com busca; arma, acessório e mapa por seletor com setas.
 - 20 armas e 25 acessórios com sprites (`www/fight-sprites.js`); modo vs CPU e 2 jogadores (tela dividida).
 - Teclado: J1 = WASD, J K L, 1 2 3 · J2 = setas, `,` `.` `/`, 8 9 0. Botão ⏸ pausa. Escolhas ficam salvas.
+- **Despertar** (só Flávio Bolsonaro e Lula): botão 🔥 (tecla Q no J1 / M no J2) ativa a aura (verde para Flávio, vermelha para Lula) por 20 s e só pode ser acionado nos primeiros 60 s da luta, uma vez. Os 3 poderes causam +20% (Flávio) / +15% (Lula) de dano e libera o 4º poder (botão ☄️/🌩️, tecla E no J1 / N no J2), de uso único, com cutscene: Esfera do Brasil (80 de dano) e Tempestade Vermelha (85 no total, dano direto, ignora defesa e escudo). A CPU também usa o despertar quando for Flávio ou Lula.
