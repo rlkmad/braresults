@@ -56,7 +56,7 @@ nav button.on:after{content:'';display:block;width:18px;height:3px;margin:3px au
 nav button{min-width:0;font-size:11px}
 
 /* ===== v6: correção de largura (grid sem minmax) ===== */
-html,body{max-width:100%;overflow-x:hidden}
+html,body{max-width:100%}body{overflow-x:clip}
 main{grid-template-columns:minmax(0,1fr)}
 main>*,.bx,.bx>*,#mapctl,#mapctl>*,.msv,.sel>*,.sr>*,.cd>*,.pg>*,.gr>*,.ug>*{min-width:0}
 .row{max-width:100%;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;padding:2px 14px 4px;margin:0 -14px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 22px),transparent)}
@@ -155,3 +155,9 @@ nav button.on svg{filter:none}nav button svg{transition:transform .35s var(--spr
 #intro,#intro.out{filter:none!important}
 #intro .ln.gl{filter:none}
 @keyframes yr{from{opacity:0;letter-spacing:.6em}to{opacity:1;letter-spacing:.12em}}
+
+/* ===== v8: rolagem, menu e contorno do mapa ===== */
+nav{grid-template-columns:repeat(5,minmax(0,1fr))}
+nav button{padding:10px 0 8px;white-space:nowrap}
+.msv path,.msv rect{vector-effect:non-scaling-stroke;stroke-width:.6px;stroke-linejoin:round}
+.msv .sel{vector-effect:non-scaling-stroke;stroke-width:1.8px!important;filter:none!important}
