@@ -161,3 +161,9 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr))}
 nav button{padding:10px 0 8px;white-space:nowrap}
 .msv path,.msv rect{vector-effect:non-scaling-stroke;stroke-width:.6px;stroke-linejoin:round}
 .msv .sel{vector-effect:non-scaling-stroke;stroke-width:1.8px!important;filter:none!important}
+
+/* ===== v9 ===== */
+.msv{overflow:hidden;touch-action:pan-y}.msv svg{will-change:transform}
+.zr{position:absolute;right:10px;bottom:10px;padding:6px 12px;border-radius:99px;background:var(--p2);border:1px solid var(--v);color:var(--v);font-size:12px;font-weight:700;z-index:2}
+#qs{position:fixed;left:14px;right:14px;bottom:calc(88px + var(--sab));z-index:30;background:var(--p2);border:1px solid var(--v);border-radius:16px;padding:12px 14px;box-shadow:0 10px 30px #000a;animation:up .25s var(--ease) both}
+#shimg{position:fixed;inset:0;z-index:60;background:#000d;display:grid;place-content:center;gap:12px;padding:20px;text-align:center}#shimg img{max-width:100%;max-height:70vh;border-radius:14px;margin:auto}#shimg p{color:var(--m);margin:0}
