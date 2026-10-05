@@ -16,6 +16,13 @@ jobs:
         with: { distribution: temurin, java-version: 21 }
       - run: npm install
       - run: npx cap add android
+      - name: Copiar android-js-engine (Background Runner)
+        run: |
+          src=node_modules/@capacitor/background-runner/android/src/main/libs/android-js-engine-release.aar
+          test -f "$src" || { echo "AAR nao encontrado em $src"; ls -R node_modules/@capacitor/background-runner/android | head -50; exit 1; }
+          mkdir -p android/app/libs android/capacitor-cordova-android-plugins/src/main/libs
+          cp "$src" android/app/libs/
+          cp "$src" android/capacitor-cordova-android-plugins/src/main/libs/
       - run: |
           f=android/app/src/main/AndroidManifest.xml
           grep -q POST_NOTIFICATIONS $f || sed -i "s#</manifest>#    <uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\" />\n</manifest>#" $f
