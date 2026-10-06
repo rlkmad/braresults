@@ -1,33 +1,33 @@
 /* Braresults — dados do jogo de luta: 20 armas (3 poderes únicos cada) e 25 acessórios.
  Poder = [nome, tipo, dano/valor, recarga(s), extra, atordoar/lentidão(s), id]  (id = mecânica própria, implementada em PW dentro de fight.js; tipo só orienta a CPU)
  Tipos: P projétil(extra=veloc.) Z projétil gelo(lentidão) M rajada x3 A área(extra=raio) D investida H cura S escudo(extra=duração) B velocidade(valor=%, extra=duração) */
-window.FD={HPB:300,UL3:0.2,DM:[0.201,0.223,0.235,0.256,0.334,0.226,0.258,0.324,0.196,0.204,0.318,0.236,0.189,0.226,0.305,0.224,0.283,0.226,0.181,0.227],CM:{"2":[1.028,1.06,1.144,0.967,0.999,0.709,0.951,1.073,1.083,1.116,0.937,1.073,0.9,0.864,1.041,1.078,1.008,0.924,1.097,1.059],"0":[0.963,0.981,0.946,1.013,1.061,1.021,1.092,1.021,0.896,1.047,1.117,0.993,0.897,1.02,1.032,0.962,0.99,1.049,0.991,0.942]},W:[
-['⚔️','Espada',0.22,['Giro','A',8.5,6,90,0,'swSpin'],['Onda de Aço','P',7,5,560,0,'swWave'],['Estocada','D',9.5,8,0,0,'swLunge']],
-['🪓','Machado',0.28,['Golpe Brutal','A',12,9,80,0,'axExec'],['Machado Voador','P',10,7,480,0,'axBoom'],['Fúria','B',30,12,4,0,'axRage']],
-['🔨','Martelo',0.27,['Marretada','A',17,9,90,0.9,'hmSlam'],['Tremor','P',8.5,7,0,0.6,'hmQuake'],['Impacto','D',12.5,10,0,0.7,'hmLeap']],
-['🗡️','Adaga',0.23,['Facada Dupla','D',9,6,0,0,'dgBack'],['Facas','M',4,7,0,0,'dgFan'],['Sombra','B',45,11,3,0,'dgShade']],
-['🏹','Arco',0.28,['Flecha Certeira','P',12,4,700,0,'bwSnipe'],['Chuva','P',7,10,0,0,'bwRain'],['Flecha Gelada','Z',9,9,600,3,'bwFrost']],
-['🪄','Cajado',0.18,['Bola de Fogo','P',11.5,7,450,0,'stFire'],['Cura','H',15,14,0,0,'stHeal'],['Raio do Céu','P',11,8,0,0.5,'stBolt']],
-['🛡️','Escudo',0.23,['Muralha','S',4.5,11,4,0,'shWall'],['Bater','A',7.5,6,70,0.8,'shBash'],['Contra-ataque','S',0,10,2.5,0,'shCounter']],
-['🔱','Tridente',0.34,['Fisgar','P',11.5,8,650,0.4,'trHook'],['Maré','P',10.5,8,380,2,'trTide'],['Arremesso','P',19.5,9,520,0,'trJav']],
-['⛏️','Picareta',0.22,['Escavar','D',9.5,9,0,0.5,'pkDig'],['Pedregulho','P',9.5,7,380,0,'pkRock'],['Terremoto','A',21,12,130,0.6,'pkQuake']],
-['🏏','Taco',0.23,['Home Run','A',8.5,8,90,0.3,'btHome'],['Rebater','P',8.5,6,700,0,'btRico'],['Rolada','D',6.5,5,0,0.7,'btRoll']],
-['🔫','Pistola',0.25,['Tiro Perfurante','P',10.5,3,900,0,'gnPierce'],['Rajada','M',3.5,8,0,0,'gnBurst'],['Recarga','B',20,12,3,0,'gnReload']],
-['💣','Bomba',0.24,['Mina','A',14,10,90,0,'bmMine'],['Granada','P',11.5,7,90,0,'bmGren'],['Salto Explosivo','D',9,9,100,0,'bmJump']],
-['🔥','Chamas',0.15,['Jato','A',2.5,6,170,0,'flJet'],['Labareda','P',6,6,500,0,'flBall'],['Inferno','A',12.5,12,130,0,'flAura']],
-['❄️','Gelo',0.18,['Estaca','Z',6,6,600,1.1,'icSpike'],['Nevasca','A',18.5,9,120,1.2,'icBliz'],['Armadura Gelo','S',13.5,10,4,0,'icArmor']],
-['⚡','Raio',0.24,['Faísca','P',8,3,900,0.3,'lgSpark'],['Trovão','P',11,9,0,0.5,'lgThunder'],['Teleporte','D',11,7,240,0,'lgBlink']],
-['🥷','Katana',0.22,['Iaijutsu','D',13.5,9,0,0.4,'ktIai'],['Shuriken','M',3.5,6,0,0,'ktStar'],['Esquiva','B',40,10,3,0,'ktDodge']],
-['🎸','Guitarra',0.25,['Acorde','A',9.5,7,110,0,'gtChord'],['Onda Sonora','P',8.5,6,600,0,'gtWave'],['Solo','B',30,12,5,0,'gtSolo']],
-['📚','Livro',0.18,['Sabedoria','H',15,13,0,0,'bkWise'],['Prova Surpresa','A',5.5,8,130,1,'bkQuiz'],['Bola de Papel','P',5.5,4,700,0,'bkPaper']],
-['🥊','Luvas',0.24,['Direto','D',9,7,0,0.6,'bxStraight'],['Combo','A',8.5,8,70,0,'bxCombo'],['Nocaute','A',13,13,75,1,'bxKO']],
-['👑','Cetro Real',0.23,['Decreto','P',9.5,8,560,0,'crDecree'],['Guarda Real','S',4,12,5,0,'crGuard'],['Tributo','H',9.5,9,260,0,'crDrain']]
+window.FD={W:[
+['⚔️','Espada',1.1,['Giro','A',14,6,90,0,'swSpin'],['Onda de Aço','P',12,5,560,0,'swWave'],['Estocada','D',16,8,0,0,'swLunge']],
+['🪓','Machado',1.25,['Golpe Brutal','A',18,9,80,0,'axExec'],['Machado Voador','P',15,7,480,0,'axBoom'],['Fúria','B',30,12,4,0,'axRage']],
+['🔨','Martelo',1.15,['Marretada','A',24,9,90,.9,'hmSlam'],['Tremor','P',12,7,0,.6,'hmQuake'],['Impacto','D',18,10,0,.7,'hmLeap']],
+['🗡️','Adaga',.9,['Facada Dupla','D',12,6,0,0,'dgBack'],['Facas','M',5,7,0,0,'dgFan'],['Sombra','B',45,11,3,0,'dgShade']],
+['🏹','Arco',.85,['Flecha Certeira','P',12,4,700,0,'bwSnipe'],['Chuva','P',7,10,0,0,'bwRain'],['Flecha Gelada','Z',9,9,600,3,'bwFrost']],
+['🪄','Cajado',.8,['Bola de Fogo','P',17,7,450,0,'stFire'],['Cura','H',16,12,0,0,'stHeal'],['Raio do Céu','P',16,8,0,.5,'stBolt']],
+['🛡️','Escudo',.9,['Muralha','S',6,11,4,0,'shWall'],['Bater','A',10,6,70,.8,'shBash'],['Contra-ataque','S',0,10,2.5,0,'shCounter']],
+['🔱','Tridente',1.05,['Fisgar','P',12,8,650,.4,'trHook'],['Maré','P',11,8,380,2,'trTide'],['Arremesso','P',20,9,520,0,'trJav']],
+['⛏️','Picareta',1.1,['Escavar','D',16,9,0,.5,'pkDig'],['Pedregulho','P',16,7,380,0,'pkRock'],['Terremoto','A',36,12,130,.6,'pkQuake']],
+['🏏','Taco',1.15,['Home Run','A',14,8,90,.3,'btHome'],['Rebater','P',14,6,700,0,'btRico'],['Rolada','D',11,5,0,.7,'btRoll']],
+['🔫','Pistola',.8,['Tiro Perfurante','P',11,3,900,0,'gnPierce'],['Rajada','M',3.5,8,0,0,'gnBurst'],['Recarga','B',20,12,3,0,'gnReload']],
+['💣','Bomba',1,['Mina','A',20,10,90,0,'bmMine'],['Granada','P',16,7,90,0,'bmGren'],['Salto Explosivo','D',13,9,100,0,'bmJump']],
+['🔥','Chamas',.8,['Jato','A',4,6,170,0,'flJet'],['Labareda','P',11,6,500,0,'flBall'],['Inferno','A',22,12,130,0,'flAura']],
+['❄️','Gelo',.8,['Estaca','Z',9,6,600,1.1,'icSpike'],['Nevasca','A',27,9,120,1.2,'icBliz'],['Armadura Gelo','S',20,10,4,0,'icArmor']],
+['⚡','Raio',.8,['Faísca','P',9,3,900,.3,'lgSpark'],['Trovão','P',12,9,0,.5,'lgThunder'],['Teleporte','D',12,7,240,0,'lgBlink']],
+['🥷','Katana',1,['Iaijutsu','D',20,9,0,.4,'ktIai'],['Shuriken','M',5,6,0,0,'ktStar'],['Esquiva','B',40,10,3,0,'ktDodge']],
+['🎸','Guitarra',.9,['Acorde','A',11,7,110,0,'gtChord'],['Onda Sonora','P',10,6,600,0,'gtWave'],['Solo','B',30,12,5,0,'gtSolo']],
+['📚','Livro',.8,['Sabedoria','H',15,11,0,0,'bkWise'],['Prova Surpresa','A',8,8,130,1,'bkQuiz'],['Bola de Papel','P',8,4,700,0,'bkPaper']],
+['🥊','Luvas',1.3,['Direto','D',17,7,0,.6,'bxStraight'],['Combo','A',16,8,70,0,'bxCombo'],['Nocaute','A',24,13,75,1,'bxKO']],
+['👑','Cetro Real',1,['Decreto','P',14,8,560,0,'crDecree'],['Guarda Real','S',6,12,5,0,'crGuard'],['Tributo','H',14,9,260,0,'crDrain']]
 ],A:[
 ['🧢','Boné Veloz',{spd:.15}],['👟','Tênis Mola',{jmp:.2}],['🕶️','Óculos Escuros',{dmg:.08}],['🧣','Cachecol',{def:.08}],
-['⌚','Relógio',{cdr:.15}],['🩸','Colar Vampiro',{ls:.08}],['💍','Anel Vital',{hp:30}],['🎒','Mochila',{reg:2.4}],
-['🧤','Luvas de Couro',{acd:.15}],['👢','Botas Pesadas',{kbr:.4}],['🎩','Cartola',{dmg:.05,cdr:.05}],['📿','Terço',{def:.05,reg:1.2}],
+['⌚','Relógio',{cdr:.15}],['🩸','Colar Vampiro',{ls:.08}],['💍','Anel Vital',{hp:10}],['🎒','Mochila',{reg:.8}],
+['🧤','Luvas de Couro',{acd:.15}],['👢','Botas Pesadas',{kbr:.4}],['🎩','Cartola',{dmg:.05,cdr:.05}],['📿','Terço',{def:.05,reg:.4}],
 ['🔔','Sino do Dash',{dcd:.3}],['🪖','Capacete',{def:.12,spd:-.05}],['🥇','Medalha',{dmg:.12,def:-.06}],['🧲','Ímã de Poder',{pdm:.15}],
-['🪽','Asas',{jmp:.35,spd:.05}],['🧿','Amuleto',{kbr:.3,def:.05}],['🎧','Fone',{cdr:.1,spd:.05}],['🧴','Remédio',{reg:3.6,spd:-.05}],
+['🪽','Asas',{jmp:.35,spd:.05}],['🧿','Amuleto',{kbr:.3,def:.05}],['🎧','Fone',{cdr:.1,spd:.05}],['🧴','Remédio',{reg:1.2,spd:-.05}],
 ['💎','Joia Rara',{dmg:.06,def:.06,cdr:.06}],['🦺','Colete',{def:.15,spd:-.08}],['🧨','Pavio Curto',{cdr:.2,def:-.08}],['🍀','Trevo',{crit:.15}],['☕','Café',{spd:.1,dcd:.15}]
 ],L:{spd:'% velocidade',jmp:'% pulo',dmg:'% dano',def:'% defesa',cdr:'% recarga rápida',ls:'% roubo de vida',hp:' vida',reg:' vida/s',acd:'% soco rápido',kbr:'% resist. empurrão',dcd:'% dash rápido',pdm:'% dano de poderes',crit:'% crítico'},
 T:{P:'Projétil',Z:'Projétil gelo',M:'Rajada x3',A:'Área',D:'Investida',H:'Cura',S:'Escudo',B:'Velocidade'}};
