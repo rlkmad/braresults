@@ -20,7 +20,7 @@ Legenda: ✅ feito (até a v1.5.0) · 🟡 parcial · ⬜ pendente
 - ✅ **Gráfico da evolução** (v1.4.5): eixo X por horário, eixos com valores, toque/arraste para ver os valores e três modos: votos %, votos válidos por minuto e diferença entre 1º e 2º (`lote3.js`).
 - ⬜ **Deputados**: hoje só "X de Y vagas definidas". Estimar por quociente eleitoral e sobras (a maior das funções).
 - ⬜ **Widget ou notificação fixa** com o placar do favorito.
-- ⬜ **Mapa — cidades**: só colorem após tocar em cada uma e mostram só 4 candidatos. Carregar sob demanda as cidades visíveis, respeitando o limite de 100 req/s do TSE.
+- ✅ **Mapa — cidades** (v1.7.0): todos os municípios coloridos no Brasil inteiro (botão Municípios). Falta: mais de 4 candidatos no card e replay por município.
 - ✅ **Mapa — estados ainda apurando** (v1.4.4): botão **Apurando** no mapa; amarelo mais forte quanto mais falta, cinza em 100%.
 - ✅ **Modo leve** (v1.4.3; Ajustes → Modo leve: Automático/Ligado/Desligado, o automático segue o `prefers-reduced-motion`). Desliga blur, fundo animado, SVG girando, números que contam, confete e animação do mapa. Antes: desligar blur, fundo animado e SVG girando (pesam em Android fraco) com interruptor em Ajustes; respeitar `prefers-reduced-motion` em todo o tema (hoje só a abertura respeita).
 - 🟡 **Replay da apuração** (v1.5.0): player flutuante com barra arrastável, marcos (liderança, eleito, 2º turno), pulo entre marcos, ½×–8×, pausa maior nos marcos e variação de votos por ponto. Mapa usa o registro por UF mais próximo (`tm:`, até 80 pontos, só com o app aberto). Falta: municípios no replay, exportar o replay (GIF/vídeo) e migrar o registro para IndexedDB.
