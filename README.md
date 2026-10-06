@@ -19,6 +19,12 @@ Todas as ideias de melhoria, com status, estão em [`IDEIAS.md`](IDEIAS.md).
 - `www/runner.js` roda em segundo plano (~a cada 15 min, decisão do Android), consulta o TSE, guarda pontos na linha do tempo e notifica.
 - Com o app aberto, avisos aparecem na tela e cada atualização do TSE entra na linha do tempo.
 
+## v1.8.0 — nova identidade visual
+- Nova logo (mapa do Brasil em neon com urna e check): ícone do app (launcher legado, redondo e adaptativo), splash, ícone do cabeçalho (`www/icon.png`) e `www/logo.webp` (usada na abertura e como marca d'água).
+- Novo tema padrão **Neon Brasil (logo)** em Ajustes > Aparência (paleta verde, ciano, amarelo e laranja da logo); os temas antigos continuam disponíveis.
+- Nova abertura (`intro.js` + bloco v1.8 do `theme.css`): o contorno neon se acende girando, pisca como tubo de neon, anéis e partículas coloridas, nome e ano.
+- Menu inferior com 6 colunas (a aba Ajustes não quebra mais de linha).
+
 ## Novidades da v1.2 (versão atual do app: 1.5.1)
 - Visual novo: temas Neon, Brasil e Aurora (além de Automático/Escuro/Claro), fundo animado, números que contam, borda animada no líder, confete quando alguém é eleito, ícones próprios.
 - Novas funções: compartilhar resultado (⤴), puxar para atualizar, selo AO VIVO / FINAL / OFFLINE.

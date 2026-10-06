@@ -105,30 +105,6 @@ button[data-a=rf]:active{transform:rotate(180deg) scale(.9)}
 .mb{padding:10px 12px;border-radius:14px;background:var(--p2);border:1px solid var(--l);margin:8px 0;transition:transform .3s var(--spring)}
 .mb:active{transform:scale(.98)}.mb .br{height:7px}
 
-/* ===== v6: abertura (logo da urna) ===== */
-#intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:radial-gradient(70% 55% at 50% 45%,#0a1a2e,#02040a 75%);overflow:hidden;transition:opacity .7s var(--ease),transform .9s var(--ease),filter .7s}
-#intro.out{opacity:0;transform:scale(1.25);filter:blur(10px);pointer-events:none}
-#intro canvas{position:absolute;inset:0;width:100%;height:100%}
-#intro .st{position:relative;width:min(62vw,300px);aspect-ratio:1;display:grid;place-items:center}
-#intro svg{width:100%;height:100%;overflow:visible}
-#intro .ln{fill:none;stroke:#fff;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:dr1 1.1s var(--ease) .15s forwards}
-#intro .gl{stroke:#19e06b;filter:drop-shadow(0 0 6px #19e06b)}
-@keyframes dr1{to{stroke-dashoffset:0}}
-#intro .bal{transform:translateY(-70px);opacity:0;animation:bal 1s var(--spring) 1s forwards}
-@keyframes bal{to{transform:translateY(0);opacity:1}}
-#intro .ck{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:dr1 .5s var(--ease) 1.8s forwards}
-#intro .scr{fill:#0a7a3a;opacity:0;animation:fi .5s ease 1.3s forwards}#intro .flag{opacity:0;transform-origin:center;transform-box:fill-box;transform:scale(.4);animation:pop .6s var(--spring) 1.5s forwards}
-#intro .key{fill:#19e06b;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(0);animation:pop .4s var(--spring) forwards}
-@keyframes fi{to{opacity:1}}@keyframes pop{to{opacity:1;transform:scale(1)}}
-#intro .ring2{position:absolute;inset:-6%;border-radius:50%;border:2px solid #19e06b;opacity:0;animation:rg 1.2s var(--ease) 2s}
-#intro .ring2.b{border-color:#ffdf00;animation-delay:2.15s}
-@keyframes rg{0%{opacity:.9;transform:scale(.5)}100%{opacity:0;transform:scale(2.6)}}
-#intro .yr{position:absolute;bottom:-2%;font:300 clamp(40px,14vw,60px)/1 system-ui;letter-spacing:.12em;color:#fff;opacity:0;animation:yr 1s var(--ease) 2.1s forwards}
-@keyframes yr{from{opacity:0;letter-spacing:.6em;filter:blur(8px)}to{opacity:1;letter-spacing:.12em;filter:blur(0)}}
-#intro .nm{position:absolute;bottom:14vh;font:800 26px system-ui;letter-spacing:.04em;background:linear-gradient(90deg,#19e06b,#ffdf00,#3b82ff);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;animation:fi .8s ease 2.5s forwards}
-#intro .sc{position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,#ffffff40 50%,transparent 60%);transform:translateX(-100%);animation:scn 1s ease 2.3s}
-@keyframes scn{to{transform:translateX(100%)}}
-#intro .st{animation:bt 1.4s ease-in-out 2s}@keyframes bt{40%{transform:scale(1.07)}}
 
 /* ===== v7: desempenho (só transform/opacity, sem blur/filter animado) ===== */
 html{-webkit-text-size-adjust:100%}body{touch-action:manipulation;overscroll-behavior-y:none}
@@ -155,12 +131,9 @@ body::before{animation:none!important;inset:0}
 .msv .sel{animation:none;filter:none;stroke-width:.4}
 @media(hover:hover){.msv path:hover{filter:none}}
 nav button.on svg{filter:none}nav button svg{transition:transform .35s var(--spring)}
-#intro,#intro.out{filter:none!important}
-#intro .ln.gl{filter:none}
-@keyframes yr{from{opacity:0;letter-spacing:.6em}to{opacity:1;letter-spacing:.12em}}
 
 /* ===== v8: rolagem, menu e contorno do mapa ===== */
-nav{grid-template-columns:repeat(5,minmax(0,1fr))}
+nav{grid-template-columns:repeat(6,minmax(0,1fr))}
 nav button{padding:10px 0 8px;white-space:nowrap}
 .msv path,.msv rect{vector-effect:non-scaling-stroke;stroke-width:.6px;stroke-linejoin:round}
 .msv .sel{vector-effect:non-scaling-stroke;stroke-width:1.8px!important;filter:none!important}
@@ -198,3 +171,55 @@ body.rpo #toast{bottom:calc(214px + var(--sab))}
 
 /* mapa de municípios (canvas) */
 #mcv{width:100%;height:100%;display:block;touch-action:inherit;cursor:pointer;will-change:transform}.msv:has(#mcv){overflow:hidden}
+
+/* ===== v1.8: tema "Neon Brasil" (paleta da logo) ===== */
+:root[data-t=neonbr]{--v:#2bff4a;--y:#f4ff2a;--b:#00e5ff;--g3:#ffb21a;--bg:#070d17;--p:#0b1624;--p2:#102034;--l:#1a2e48;--t:#ecfbff;--m:#85a4ba;--hb:#070d17;--nb:#070d17;--on:#031208;--sp:linear-gradient(90deg,#2bff4a,#00e5ff 34%,#f4ff2a 68%,#ffb21a)}
+[data-t=neonbr] header{border-bottom:2px solid transparent;border-image:var(--sp) 1;box-shadow:0 8px 26px -14px #00e5ff66}
+[data-t=neonbr] .hd b{background:var(--sp);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:18px;letter-spacing:.03em}
+[data-t=neonbr] .lg{box-shadow:0 0 0 1.5px #00e5ff55,0 0 16px -2px #2bff4a99;border-radius:11px}
+[data-t=neonbr] .bx,[data-t=neonbr] .cd,[data-t=neonbr] .vd,[data-t=neonbr] .warn{border-color:color-mix(in srgb,var(--b) 30%,var(--l));box-shadow:0 0 0 1px color-mix(in srgb,var(--v) 7%,transparent) inset,0 0 16px -9px var(--b),0 8px 20px -12px #000c}
+[data-t=neonbr] .bx:before{background:linear-gradient(135deg,color-mix(in srgb,var(--v) 12%,transparent),transparent 36%,transparent 66%,color-mix(in srgb,var(--g3) 11%,transparent))}
+[data-t=neonbr] .bx h3{background:var(--sp);-webkit-background-clip:text;background-clip:text;color:transparent}
+[data-t=neonbr] .pct,[data-t=neonbr] .big{background:linear-gradient(90deg,var(--y),var(--v));-webkit-background-clip:text;background-clip:text;color:transparent}
+[data-t=neonbr] .br i{background:var(--c,linear-gradient(90deg,var(--v),var(--b)));box-shadow:0 0 10px -2px var(--c,var(--v))}
+[data-t=neonbr] .ch.on{background:var(--sp);color:var(--on);box-shadow:0 0 16px -3px var(--b);border-color:transparent}
+[data-t=neonbr] .ring:before{background:var(--bg)}
+[data-t=neonbr] .ring{background:conic-gradient(var(--v) var(--p,0deg),var(--l) 0);box-shadow:0 0 12px -3px var(--b)}
+[data-t=neonbr] nav{border-top:2px solid transparent;border-image:var(--sp) 1;border-radius:0;box-shadow:0 -8px 26px -14px #2bff4a66}
+[data-t=neonbr] nav button.on{color:var(--b)}
+[data-t=neonbr] nav button.on:after{background:var(--sp);box-shadow:0 0 10px var(--b)}
+[data-t=neonbr] nav button.on svg{filter:drop-shadow(0 0 6px var(--b))}
+[data-t=neonbr] body::before{background:radial-gradient(42% 34% at 12% 8%,color-mix(in srgb,var(--v) 15%,transparent),transparent 70%),radial-gradient(38% 38% at 92% 22%,color-mix(in srgb,var(--b) 15%,transparent),transparent 70%),radial-gradient(50% 40% at 70% 96%,color-mix(in srgb,var(--g3) 13%,transparent),transparent 70%)}
+[data-t=neonbr] #art{width:420px;right:-150px;top:110px;opacity:.12;background:url(logo.webp) center/contain no-repeat;aspect-ratio:1}
+[data-t=neonbr] #art svg{display:none}
+[data-t=neonbr] .vd.g{border-color:color-mix(in srgb,var(--v) 65%,transparent);background:color-mix(in srgb,var(--v) 11%,transparent)}
+[data-t=neonbr] #lista>.cd:first-child{background:linear-gradient(var(--bg),var(--bg)) padding-box,var(--sp) border-box}
+[data-t=neonbr] .zr,[data-t=neonbr] #qs{border-color:var(--b);color:var(--b)}
+
+/* ===== v1.8: abertura — contorno neon do mapa se acendendo ===== */
+@property --rv{syntax:'<angle>';initial-value:0deg;inherits:false}
+#intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:radial-gradient(70% 55% at 50% 44%,#0a1a2a,#02040a 76%);overflow:hidden;transition:opacity .7s var(--ease),transform .9s var(--ease)}
+#intro.out{opacity:0;transform:scale(1.22);pointer-events:none}
+#intro canvas{position:absolute;inset:0;width:100%;height:100%}
+#intro .st{position:relative;width:min(88vw,420px);aspect-ratio:1;margin-top:-6vh;-webkit-mask-image:radial-gradient(closest-side,#000 86%,transparent 100%);mask-image:radial-gradient(closest-side,#000 86%,transparent 100%)}
+#intro .st img{position:absolute;inset:0;width:100%;height:100%;display:block;mix-blend-mode:screen;opacity:0;-webkit-mask-image:conic-gradient(from -8deg at 50% 50%,#000 var(--rv),transparent calc(var(--rv) + 16deg));mask-image:conic-gradient(from -8deg at 50% 50%,#000 var(--rv),transparent calc(var(--rv) + 16deg))}
+#intro .st .gw{filter:blur(14px) contrast(1.9) saturate(1.5) brightness(1.1)}
+#intro.go .st img{opacity:1;animation:ix-rv 1.55s cubic-bezier(.5,0,.25,1) .15s both}
+#intro.go .st .gm{animation:ix-rv 1.55s cubic-bezier(.5,0,.25,1) .15s both,ix-fl .55s steps(1,end) 1.72s both}
+#intro.go .st .gw{opacity:0;animation:ix-rv 1.55s cubic-bezier(.5,0,.25,1) .15s both,ix-gw 1.5s ease-in-out 1.7s both}
+@keyframes ix-rv{from{--rv:0deg}to{--rv:376deg}}
+@keyframes ix-fl{0%{opacity:1}12%{opacity:.35}26%{opacity:1}40%{opacity:.55}56%{opacity:1}72%{opacity:.7}100%{opacity:1}}
+@keyframes ix-gw{0%{opacity:0}35%{opacity:.95}100%{opacity:.5}}
+#intro .rg{position:absolute;inset:14%;border-radius:50%;border:2px solid #2bff4a;opacity:0}
+#intro.go .rg{animation:ix-rg 1.3s var(--ease) 1.75s both}
+#intro .rg.b{border-color:#00e5ff}#intro.go .rg.b{animation-delay:1.9s}
+#intro .rg.c{border-color:#f4ff2a}#intro.go .rg.c{animation-delay:2.05s}
+@keyframes ix-rg{0%{opacity:.85;transform:scale(.45)}100%{opacity:0;transform:scale(2.5)}}
+#intro .nm{position:absolute;bottom:17vh;font:800 30px system-ui;letter-spacing:.2em;background:linear-gradient(90deg,#2bff4a,#00e5ff 35%,#f4ff2a 68%,#ffb21a);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0}
+#intro.go .nm{animation:ix-nm 1s var(--ease) 2.15s both}
+@keyframes ix-nm{from{opacity:0;letter-spacing:.7em}to{opacity:1;letter-spacing:.06em}}
+#intro .yr{position:absolute;bottom:11.5vh;font:300 15px system-ui;letter-spacing:.42em;color:#a9c7d8;opacity:0;text-indent:.42em}
+#intro.go .yr{animation:ix-yr .8s ease 2.6s both}
+@keyframes ix-yr{to{opacity:.9}}
+#intro.go .st{animation:ix-bt 1.2s ease-in-out 1.75s}
+@keyframes ix-bt{40%{transform:scale(1.05)}}
