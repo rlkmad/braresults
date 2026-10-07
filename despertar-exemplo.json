@@ -1,0 +1,64 @@
+{
+ "fmt": "brc1",
+ "tipo": "despertar",
+ "nome": "Furia Dourada",
+ "autor": "Exemplo",
+ "versao": 1,
+ "ver_min_app": "1.9.9",
+ "icone": "🔥",
+ "dados": {
+  "candidato": "",
+  "icone": "🔥",
+  "cores": [
+   "#fff2c0",
+   "#ffcc33",
+   "#aa5500"
+  ],
+  "bonus_poder": 0.2,
+  "atrib": {
+   "spd": 0.1,
+   "dmg": 0.08,
+   "def": 0.08,
+   "cdr": 0.1
+  },
+  "poder_final": {
+   "nome": "Chuva Solar",
+   "icone": "☀️",
+   "blocos": [
+    {
+     "b": "chuva",
+     "area": 600,
+     "quantidade": 16,
+     "dano": 4,
+     "forma": "estrela",
+     "duracao_s": 2.5,
+     "rastro": {
+      "tipo": "fogo",
+      "cor1": "#ffffff",
+      "cor2": "#ffb300"
+     }
+    },
+    {
+     "b": "orbita",
+     "quantidade": 4,
+     "raio": 90,
+     "vel": 3,
+     "dano": 6,
+     "duracao_s": 4,
+     "explode_no_fim": true,
+     "forma": "orbe",
+     "rastro": {
+      "tipo": "fogo",
+      "cor1": "#ffffff",
+      "cor2": "#ff8800"
+     }
+    },
+    {
+     "b": "visual",
+     "flash": true,
+     "tremor_tela": 5
+    }
+   ]
+  }
+ }
+}

@@ -2,6 +2,76 @@
 
 App Android (Capacitor). A interface fica em `www/` (HTML/CSS/JS puro) e busca os dados direto do TSE pelo HTTP nativo (sem CORS). Não usa nenhum servidor próprio.
 
+## v1.9.14 - Barra de progresso real no download
+- Ao adicionar ou testar uma criação da biblioteca, a barra verde segue os bytes que chegam (de 10% a 90%); validar e instalar completam até 100%. Se o aparelho não permitir leitura em fluxo, volta ao comportamento anterior (10% → 90% → 95%).
+
+## v1.9.13 - Seletor de candidato volta para a biblioteca
+- Ao baixar um despertar da biblioteca, "✔ Concluir" no seletor volta para a Biblioteca (antes ia para Minhas criações). Pelo botão 👤 em Minhas criações continua voltando para lá.
+
+## v1.9.12 - Tempo do modo "lançar"
+- Em `poder_final` com `"lancar": true`, o campo opcional `"espera_s"` (1 a 8, padrão 3) define quantos segundos a esfera fica na mão antes de disparar sozinha.
+
+## v1.9.11 - Despertar vale para vários candidatos
+- Na tela de escolher candidato (👤) dá para marcar até 10 candidatos; tocar de novo desmarca; "✔ Concluir" volta. O despertar vale quando qualquer um deles lutar.
+- Vínculos antigos (1 candidato) são convertidos sozinhos. Ao exportar, o arquivo leva só o 1º candidato.
+
+## v1.9.10 - Despertar: escolher candidato do TSE
+- O despertar importado deixa de depender de um nome digitado: no rascunho e em cada cartão há o botão **👤 Escolher candidato**, que abre a lista do TSE (cargo, UF e busca, a mesma fonte do lobby). O vínculo vale por id do candidato (ou nome igual) e fica em `brc_awc` (não muda o id da criação). Salvar um despertar novo exige escolher o candidato.
+- `candidato` no arquivo passou a ser opcional (serve só de sugestão na busca). Exportar grava o nome do candidato escolhido. Despertares salvos na v1.9.9 continuam valendo pelo nome até você escolher um candidato.
+- Se o JSON traz `candidato` (ex.: "Manoel Gomes"), vale sem escolher na lista (nome com todas as palavras iguais ao da lista do jogo); o 👤 troca por um candidato exato. Os botões de despertar e 4º poder agora usam as cores da aura.
+- **Poder final lançado no botão:** em `poder_final` use `"lancar": true`. Depois da cutscene o poder fica na mão (esfera com as cores da aura) e dispara ao tocar em 🚀 LANÇAR, mirando no momento do toque, ou sozinho após 3 s. Sem `lancar`, dispara logo depois da cutscene.
+- O 4º poder de despertar importado já roda a cutscene (2,4 s, nome do poder, rosto do candidato) antes de disparar; conferido em teste.
+
+## v1.9.9 - Despertar importável (tipo "despertar")
+- Novo tipo `"despertar"` (pacote brc1, ver_min_app `1.9.9`, até 12 KB): `dados.candidato` (nome; vale para quem tiver TODAS as palavras no nome, ex. "Lula"), `cores` [brilho, aura, sombra], `bonus_poder` (0 a 0,4, mais dano nos poderes durante o despertar), `atrib` (até 5 bônus temporários: spd, jmp, dmg, def, cdr, ls, reg, acd, kbr, dcd, pdm, crit; sem hp), `poder_final` {nome, icone, blocos (até 4, os mesmos blocos das armas; dano total até 90)}.
+- Substitui o despertar embutido do candidato (excluir devolve o original). Só vale para o candidato nomeado, jogador ou CPU. Rascunho só vale no teste.
+- Teste: 🧪 abre a luta de treino com despertar pronto; toque em 🔥 Despertar e depois no poder final (recarga curta no teste).
+- Biblioteca: nova categoria "✨ Despertares". Rode de novo o `supabase-biblioteca.sql` (amplia a regra de tipos).
+- Exemplo: `despertar-exemplo.json`.
+
+## v1.9.8 - Etapa 5 (parte 2): Testar na biblioteca e mensagens de erro
+- Detalhe de uma criação na Biblioteca ganhou "🧪 Testar sem instalar": baixa os dados, abre como rascunho (Minhas criações) e roda o teste da categoria; lá dá para Salvar. Se já houver rascunho, pede confirmação para substituir.
+- Mensagens de erro em português claro por causa (401/403, 404, 400/422, 429, 5xx, sem conexão, demora, resposta inesperada) em lista, adicionar, testar, denunciar e enviar; "sem espaço" agora diz o que fazer.
+
+## v1.9.7 - Etapa 5 (parte 1): espaço usado
+- Minhas criações mostra uma barra de espaço do aparelho (estimativa sobre ~5 MB do localStorage: criações, cache da biblioteca) e avisa a partir de 80% (vermelho a partir de 95%). A Biblioteca mostra a mesma barra só quando passa de 80%.
+- Botão "Limpar cache da biblioteca" (Minhas criações). Se salvar uma criação falhar por falta de espaço, o app apaga o cache da biblioteca sozinho e tenta de novo uma vez.
+
+## v1.9.4 — Criações (Etapa 2, parte 4: finalização por modelo — fecha a Etapa 2)
+- Novo tipo `"finalizacao"` (pacote brc1, ver_min_app `1.9.4`, até 30 KB). Não há cena livre em código: a cena é uma **linha do tempo** `dados.eventos[{t, acao, ...}]` de ações de uma lista permitida, com `duracao_s` (4 a 15 s) e `distancia` (50 a 220, distância do vencedor ao perdedor). Máx. 40 eventos; cada ação tem limite de quantidade e de valores (fora da faixa vira o limite, com aviso em português).
+- Ações: `golpes_rapidos`, `corte`, `raio`, `particulas` (fogo, gelo, fumaca, faiscas), `flash`, `tremor`, `escurecer`, `som` (evento da lista embutida, ex. `boom`, `splat`, `pw_lgThunder`), `camera_zoom`, `explosao`, `mordida`, `texto` (até 16 caracteres). Golpes, corte, raio, explosão e mordida tocam um som padrão; `som` acrescenta outro.
+- Vencedor, perdedor, sangue (🩸 da tela de luta) e a vinheta/vitória seguem as finalizações existentes; sangue só aparece nas ações que o usam quando está ligado. O perdedor some no fim (por `explosao` ou automaticamente).
+- A finalização aparece no seletor **Finalização** da tela antes da luta (números 100 em diante; as 5 originais ficam iguais).
+- Teste: botão 🧪 roda a cena inteira com dois bonecos (a luta de treino); chips **Sangue** e **Você vence/perde** na tela Minhas criações; a barra de baixo mostra duração e tempo atual. Sair restaura a finalização que estava escolhida.
+- Exemplo: `trovao-sombrio.json`.
+- Etapa 2 completa (armas, acessórios, mapas, sons, foto, finalizações). Próxima: Etapa 3 (biblioteca online, Supabase).
+
+## v1.9.3 — Criações (Etapa 2, parte 3: editor de foto)
+- Toda criação (arma, acessório, mapa, som) pode ter `foto` (data URI webp/png/jpeg, até 40 KB, tamanho 256x256). O validador confere o formato pelos bytes; foto inválida ou grande demais é ignorada com aviso (a criação continua válida).
+- Ao importar, se o arquivo não trouxe foto, o app **gera sozinho** a partir do sprite (arma/acessório), do cenário (mapa) ou do ícone do evento (som).
+- Botão **🖼** em cada criação abre o editor: desenhar com o dedo (8 cores, 3 tamanhos, borracha, limpar), **Gerar do sprite** ou **Escolher da galeria** (recorta quadrado e redimensiona); **Usar esta foto** codifica em webp (reduz a qualidade, e depois o tamanho, até caber em 40 KB).
+- A foto aparece como miniatura no card e vai junto no Exportar. Não entra no id nem no limite de tamanho da criação.
+- Falta da Etapa 2: finalizações por modelo.
+
+## v1.9.2 — Criações (Etapa 2, parte 2: sons importáveis)
+- Novo tipo **som** no `brc1`: `dados {evento, audio (base64 de ogg/mp3/wav)}`, até 140 KB e 3 s. Eventos: pulo, dash, esquiva, defesa, reflexo, início do round, "Lutar!", nocaute, explosão, toque nos menus, começar a luta, despertar, vitória e derrota.
+- Um som salvo **substitui** o som daquele evento no jogo (o último salvo vence); excluir devolve o original. O arquivo embutido nunca é alterado: `sfx.js` ganhou só uma camada `CU` consultada antes dos arquivos (`SFX.cust/dec/play`).
+- **Testar** toca o som e mostra evento, duração e tamanho. O formato é conferido pelos bytes iniciais (não pela extensão).
+- Falta da Etapa 2: finalizações por modelo e editor de foto.
+
+## v1.9.1 — Criações (Etapa 2, parte 1: acessórios e mapas)
+- `www/custom.js` agora aceita `tipo` **acessorio** e **mapa** (mesmo pacote `brc1`, mesma tela **🧩 Minhas criações**, Testar / Salvar só para mim / Exportar / Excluir).
+- Acessório: até 4 bônus entre os 13 atributos do jogo, cada um limitado a uma faixa; bônus fortes demais juntos são reduzidos (orçamento, negativos aumentam o limite). Sprite SVG sanitizado; `ancora` "cabeca" ou "rosto" desenha no lutador, "costas"/"mao" aparecem só nos ícones. Passiva por bloco: ainda não.
+- Mapa: tema de fundo (praca, noite, vulcao, geleira, neon), cores do céu/chão/plataformas, até 5 plataformas; checagem automática de alcançabilidade (degrau máx. 120, vão máx. 340; aproximada). Perigos e pontos de início ainda não existem no jogo e são ignorados.
+- Testar acessório/mapa usa a luta de treino (adversário parado e imortal). Embutidos intactos (teste de regressão: FD.W/A/M e FS.W/A/gr/ori iguais depois de instalar e apagar).
+- Falta da Etapa 2: sons importáveis, finalizações por modelo e editor de foto.
+
+## v1.9.0 — Criações (Etapa 1: armas por dados)
+Novo botão **🧩 Minhas criações** no menu do jogo (aba Lutar). Importa uma arma `.json` (formato `brc1`), valida, deixa **Testar** (luta de treino: adversário parado e imortal, recarga rápida) e **Salvar só para mim**. Salvas ficam em `localStorage` (`brc_lib`) e entram na lista de armas. Exportar gera o `.json` de novo. Exemplo: `foice-da-morte.json`.
+- Criações são **só dados**: nunca executam código. `www/custom.js` tem o validador (limites numéricos, orçamento de dano por poder, recarga mínima), o sanitizador de SVG (lista branca) e o interpretador de blocos (projetil, onda, investida, chuva, orbita, aura, invocar, status, teleporte, terremoto, atrai, repele, cura, escudo, visual, som).
+- As 20 armas embutidas não foram alteradas. Ganchos no `fight.js`: `cast` (handler/som custom, recarga curta no treino), `ai` (parada no treino), `onClick`/`onChange` (data-a `brc*`), botão no menu. `sfx.js` expõe `SFX.tab`; `fight-sprites.js` expõe `FS.clr`.
+- Ainda não existe: acessórios/mapas/finalizações/sons importáveis (Etapa 2), biblioteca online com Supabase (Etapas 3–4), foto desenhada no app.
+
 ## Gerar o APK (sem instalar nada)
 1. Crie um repositório no GitHub e envie o conteúdo desta pasta (inclusive `.github`).
 2. Aba **Actions → Build APK → Run workflow** (também roda a cada envio).
@@ -18,6 +88,40 @@ Todas as ideias de melhoria, com status, estão em [`IDEIAS.md`](IDEIAS.md).
 - ★ no topo favorita a seleção atual. Em **Ajustes**, ligue as notificações.
 - `www/runner.js` roda em segundo plano (~a cada 15 min, decisão do Android), consulta o TSE, guarda pontos na linha do tempo e notifica.
 - Com o app aberto, avisos aparecem na tela e cada atualização do TSE entra na linha do tempo.
+
+## v1.8.8 — Opções: condições da luta
+- Nova seção "Condições da luta" em Lutar > Opções: recarga do despertar (15/30/60/90 s), duração do despertar (10/20/30/45 s), tempo de cada round (60/90/120/180 s), vida dos lutadores (metade, normal, ×1,5, dobro) e recarga dos poderes (metade, normal, ×1,5, dobro), com "Restaurar padrão". Valem para os dois lutadores na próxima luta e ficam salvas em OPT (chaves cAwc, cAwd, cRt, cVid, cCd).
+- fight.js: AWDUR/AWC viraram let e são lidos no início da luta; RT, vida (mk) e recarga (cast e anel do HUD) leem OPT. Padrões idênticos aos anteriores, então quem não mexe não percebe diferença. A tela de opções agora mantém a rolagem ao tocar numa opção.
+
+## v1.8.7 — sons estilo anime (Parte 4: poderes)
+- 60 sons únicos de poder (www/sfx/pw_<id>.ogg, um por poder, combinando com o tema da arma e o tipo), pw_aw (camada brilhante extra quando despertado), awaken e ult1 a ult5 (poder final, esfera, lançamento e raios).
+- sfx.js: SFX.pw toca pw_<id> (variação de ±3% no tom; se despertado, soma pw_aw), SFX.awaken e SFX.ult tocam o arquivo; sem arquivo caem no sintetizado antigo. fight.js e os tempos das cutscenes não mudaram.
+
+## v1.8.6 — sons estilo anime (Parte 3: combate)
+- Novos sons gerados do zero (www/sfx/): 16 swings por arma (swing_blade, katana, dagger, heavy, blunt, gun, bow, magic, punch, fire, ice, zap, guitar, shield, spear, throw; Martelo/Picareta/Livro/Cetro reaproveitam o arquivo da família com tom diferente) e 12 impactos (hit_<cut|blunt|shot|elem>_<l|m|h>, nível leve/médio/forte pelo dano e empurrão), mais splat.ogg (reservado às finalizações, Parte 5).
+- sfx.js: tabelas SW (arma -> swing) e HF (arma -> família de impacto); SFX.swing e SFX.hit tocam o arquivo com variação aleatória de ±3-4% no tom; sem arquivo caem no som sintetizado antigo. fight.js e a luta não mudaram. Crítico ainda sem som próprio (precisa de gancho em fight.js).
+
+## v1.8.5 — sons estilo anime (Parte 2: movimento e defesa)
+- Refeitos jump, dash, dodge (3 variações cada), block e reflect: whooshes com brilho, tinidos metálicos longos, impactos em camadas e eco curto. Só sfx/ mudou desde a v1.8.4.
+
+## v1.8.4 — sons por síntese (Parte 2: movimento e defesa)
+- Novos sons gerados do zero (www/sfx/): jump, dash, dodge (cada um com 3 variações _b/_c escolhidas ao acaso), block e reflect. Sem arquivo, cai no som sintetizado antigo.
+- Só sfx.js (LIST + escolha de variação) e arquivos de áudio; fight.js e a luta não mudaram.
+
+## v1.8.3 — sons por arquivo (Parte 1: menus)
+`sfx.js` toca arquivos de `www/sfx/<nome>.ogg|mp3|wav`; sem arquivo usa o sintetizado. Parte 1: 6 arquivos próprios (ui_tap, ui_toggle, ui_ok, ui_go, round, fight) e os outros nomes reaproveitam um deles com tom diferente (tabela AL). API SFX.* inalterada.
+
+## v1.8.2 — interface do jogo Lutar redesenhada
+- Tela de montar a luta compactada: Equipamento e arena lado a lado, lista com mais candidatos visíveis, rodapé com resumo da luta e abas de cargo roláveis.
+- Tela de Opções reorganizada em seções (Controles, Tela, Joystick, Som e vibração).
+- Nova tela inicial: título em duas linhas, luvas se enfrentando, cenário de ringue com holofote e faixas nas cores do Brasil, e atalho mostrando o último lutador.
+- Menu, montagem da luta (seções agrupadas: lutador, equipamento, arena, finalização, dificuldade), cartões e botões de escolha com novo visual verde/ciano; só CSS e marcação, a lógica do jogo não mudou.
+
+## v1.8.1 — jogo Lutar mais fluido (sem baixar a qualidade)
+- Enquanto o jogo está aberto, o app por trás (animações, fundos e blur) fica pausado e oculto.
+- Sprites de armas e acessórios são pré-renderizados uma vez (antes o SVG era reprocessado a cada quadro) e carregados antes da luta começar.
+- O fundo desenha só a parte visível da arena; o canvas é opaco (`alpha:false`).
+- A queda automática de resolução ficou bem mais conservadora (ignora os 5 primeiros segundos e só age com média acima de 27 ms).
 
 ## v1.8.0 — nova identidade visual
 - Nova logo (mapa do Brasil em neon com urna e check): ícone do app (launcher legado, redondo e adaptativo), splash, ícone do cabeçalho (`www/icon.png`) e `www/logo.webp` (usada na abertura e como marca d'água).
@@ -73,3 +177,18 @@ Todas as ideias de melhoria, com status, estão em [`IDEIAS.md`](IDEIAS.md).
 - Poder final (4º poder do despertar): subida de 2,1 s casada com o clarão da cutscene (antes durava 1,2 s); Esfera do Brasil ganha som ao aparecer na mão (ult 3) e ao ser lançada (ult 4); Tempestade Vermelha ganha estalo em cada um dos 44 raios (ult 5).
 - Pausa: SFX.hold() congela o relógio de áudio (suspend/resume) para não dessincronizar finalizações/cutscene; também congela ao minimizar o app.
 - Arquivos: www/sfx.js, www/fight.js (4 linhas).
+
+
+## v1.8.9 - Sons Parte 5 (final e finalizacoes)
+Novos arquivos em www/sfx: ko, boom, boom_b, splat_big, win_good, win_bad, fin1..fin5 (estilo anime, sintetizados). Integracao em sfx.js (LIST, VR boom, playBuf com atraso, SFX.win e SFX.fin). fight.js nao foi alterado.
+
+## v1.9.5 - Etapa 3: Biblioteca online (leitura)
+- Botão **📚 Biblioteca** no menu do jogo (`data-a="brclib"`). Novos: `www/lib.js` (window.BRCL), `www/lib-config.js` (URL e chave PÚBLICA do Supabase), `supabase-biblioteca.sql`.
+- Lista paginada (12 por vez) só com metadados + foto; busca por nome; ordem (mais baixadas / novas / menores); categorias; detalhe; **Adicionar** baixa só os `dados` e passa pelo MESMO validador de `custom.js` (`BRC.lib.add`); aba **Instaladas**; **Remover**; **Denunciar** (1x por aparelho); contador de downloads via RPC; cache da 1ª página de cada busca (offline mostra o cache); criação que exige app mais novo aparece como "Atualize o app".
+- `custom.js`: `BRC.api` ganhou getter, `BRC.lib {has,get,add,del}`, roteamento de `data-a` que começam com `brcl`.
+- SQL: criações enviadas entram direto como `aprovado` (decisão do dono); moderação só pelo painel (mudar status para `removido`).
+
+## v1.9.6 - Etapa 4: Envio para a biblioteca
+- Botão **📚 Enviar** em cada criação salva e no rascunho (Minhas criações) abre a tela de envio (`www/lib.js`, `data-a` começando com `brcu`): nome, apelido (autor), aceite de termos (1ª vez) e **Enviar agora**. Só habilita depois de **🧪 Testar** na sessão (`BRC.lib.tested`).
+- Publica na hora (`status:'aprovado'`, `Prefer: return=minimal`), `hash = pkg.id` (duplicata = 409 "já existe"), `tamanho_bytes` = tamanho dos `dados`. Limites no app: 5 envios/24 h por aparelho, filtro de palavras no nome/apelido, foto obrigatória (gerada se faltar), reenvio da mesma criação bloqueado. Estado local: `brc_nick`, `brc_terms`, `brc_upl`, `brc_sent`.
+- SQL atualizado (`supabase-biblioteca.sql`: insert exige hash e foto; limite de tamanho dos dados) e novo `supabase-moderacao.sql` (consultas para remover/restaurar pelo painel).

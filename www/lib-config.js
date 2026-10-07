@@ -1,0 +1,1 @@
+window.BRCL_CFG={url:'https://fmdrogsmygdzbnjpwxzk.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtZHJvZ3NteWdkemJuanB3eHprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNDEyMzcsImV4cCI6MjEwNjkxNzIzN30.OgSSa4c24x3YUH76MYFPMbycPPNQmN4xUApWTkprcQs'};

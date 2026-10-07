@@ -1,0 +1,13 @@
+{"fmt":"brc1","tipo":"finalizacao","nome":"Trovão Sombrio","autor":"Exemplo","versao":1,"ver_min_app":"1.9.4","icone":"⚡",
+ "dados":{"duracao_s":9,"distancia":100,"eventos":[
+  {"t":0.8,"acao":"escurecer","valor":0.55,"dur":1.2},
+  {"t":1.0,"acao":"camera_zoom","zoom":1.35,"dur":1.2},
+  {"t":1.2,"acao":"particulas","tipo":"fumaca","dur":3,"taxa":50},
+  {"t":2.4,"acao":"raio","dur":0.9},
+  {"t":3.4,"acao":"golpes_rapidos","dur":1.6,"forca":3},
+  {"t":5.2,"acao":"corte","angulo":-30},
+  {"t":5.8,"acao":"mordida","quantidade":2,"intervalo":0.5},
+  {"t":6.4,"acao":"texto","texto":"FIM!","cor":"#ffd54a","dur":1.4},
+  {"t":7.2,"acao":"explosao","forca":140},
+  {"t":7.3,"acao":"escurecer","valor":0,"dur":1}
+ ]}}
