@@ -1,0 +1,26 @@
+BRARESULTS - ARMAS PROPRIAS, PARTE 8 CONCLUIDA (IMPACTO, EFEITOS ESPECIAIS E PROJETIL) - app v1.9.46
+================================================================
+Como usar: cole este arquivo + os TXT das Partes 1 a 7 no inicio de um novo chat e anexe o braresults-app-v1946.zip. As REGRAS DE TRABALHO continuam valendo.
+
+O QUE A PARTE 8 ENTREGOU
+- www/sfx/: 30 arquivos novos, gerados por tools/sfx_armas8.py (numpy + ffmpeg; reaproveita os auxiliares de sfx_armas.py):
+  hit_w0..hit_w19 (impacto de cada arma; id = indice da arma), fx_martelo, fx_bomba, fx_queima, fx_gelo, fx_tontura, fx_katana, fx_tridente, fx_picareta, fx_flecha, fx_bala. Pico -7 dB; media entre -18 e -29 dB (hit_w13 -28,6 e hit_w3 -27,4 ganharam ganho em VG).
+- www/sfx.js: SFX.hit toca hit_w<arma>; forca (dano/100 + empurrao/800) muda volume (0,62 a 1,0) e velocidade (1,1 a 0,9). Sem o arquivo cai nas 12 familias hit_<fam>_<l|m|h> e depois no sintetizado. 30 nomes em LIST; VG ajusta ganho (hit_w3, hit_w13, fx_martelo, fx_flecha, fx_bala).
+- www/fight.js: opcao sx nos projeteis (toca ao acertar, ou na explosao quando ha ex): Chamas fx_queima, Gelo fx_gelo, Bomba fx_bomba, Guitarra fx_tontura. Disparo: fx_flecha (Arco), fx_bala (Pistola). Inicio do ataque: fx_martelo (onda), fx_katana, fx_tridente. Picareta: fx_picareta em hitF quando o golpe ignora defesa. Dano, alcance e balanceamento NAO mudaram.
+- Versao 1.9.46 (custom.js, fight.js, package.json); README e sfx/LEIAME.txt atualizados.
+
+TESTADO
+- node --check em todos os .js; python3 tools/sfx_armas8.py gera os 30 arquivos.
+- Chromium: SFX.hit(0..19) toca 20 buffers distintos (comparei tamanho + amostras, pois alguns tem a mesma duracao); os 10 fx_* tocam.
+- tools/sim: 60 lutas reais (Martelo, Tridente, Picareta, Pistola, Bomba, Chamas, Gelo, Katana, Guitarra, Arco contra Espada, Adaga, Raio), todas terminam, 0 erros JS. Contadores confirmam que todos os fx_* e hit_w* foram acionados durante as lutas.
+
+NAO TESTADO
+- COMO OS SONS SOAM: ninguem ouviu, so medi nivel e duracao. Pedir ao dono para escutar no aparelho (principalmente hit_w13 Gelo, hit_w14 Raio, fx_bomba e fx_tontura).
+- Volume relativo no aparelho real; sobreposicao fx_* + hit_w* + pw_* no mesmo instante (o limite de 28 vozes pode cortar sons em cenas cheias; no teste de laboratorio disparando 28 sons seguidos os ultimos foram cortados).
+- fx_queima tambem toca na explosao do poder stFire (compartilha o projetil com a Chamas): conferir se incomoda junto de pw_stFire.
+- Burn tick das Chamas e lentidao do Gelo continuam sem som proprio alem do impacto.
+
+PENDENTE
+- Se algum som nao agradar: ajustar a funcao em tools/sfx_armas8.py, rodar de novo e reempacotar.
+- Animacao de pose por arma; multiplicador por dificuldade ou ajuste da IA; mais sementes na validacao.
+- Opcional: projetil em voo com som continuo (bola de fogo, onda da Guitarra).

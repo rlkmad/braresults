@@ -1,0 +1,16 @@
+BRARESULTS - NOVAS IDEIAS, PARTE 1a CONCLUIDA (ESCOLHER ARMA/ACESSORIO/FINALIZACAO DA CPU) - app v1.9.48
+================================================================
+Como usar: cole este arquivo + braresults-novas-ideias-3-partes.txt + os TXT das armas 1 a 9 no inicio de um novo chat e anexe o braresults-app-v1948.zip. As REGRAS DE TRABALHO continuam valendo. Proximo: Parte 1b (despertar escolhivel + renomear despertares + remover aviso "Despertar disponivel").
+
+O QUE A 1a ENTREGOU (www/fight.js)
+- Variaveis CPW/CPA (arma/acessorio da CPU, -1 = aleatorio), CPF (-1 = igual a minha [padrao, comportamento antigo], -2 = aleatoria, >=0 = finalizacao fixa), CPFR (resolvida em screenLoad), FKU (FK do jogador guardada durante a finalizacao da CPU). Persistidas em ST 'sel'; clamp em fix() e no carregamento.
+- paintRight: secao "Adversario (CPU)" (cslot + chips cfk), so em vs CPU (nao em PvP/treino). screenPick/pickDone aceitam PI.cpu, com botao "Aleatorio" (prnd). A lista manual inclui personalizados; o sorteio continua 0-19 / 0-24 como antes.
+- screenLoad usa CPW/CPA e mostra arma+acessorio da CPU no mini-card. ko(): se a CPU vence e CPFR>=0, FK=CPFR (FKU guarda o do jogador); stop() restaura.
+- Versao 1.9.48 (custom.js, fight.js, package.json); README atualizado.
+
+TESTADO
+- node --check; Chromium (sim copy, relogio real na tela de carregamento): CPU fixa Tridente/acessorio 3 com finalizacao Caes: CPU vence -> FK=4 e FK volta a 1 ao sair; jogador vence -> FK=1; tudo aleatorio -> sorteia e finalizacao igual; finalizacao aleatoria -> sorteada. 0 erros JS. tools/sim: 8 lutas, 0 erros.
+
+NAO TESTADO
+- Toque/aparelho real; visual da secao em tela pequena; as cenas das finalizacoes personalizadas (BRC.FO) vencidas pela CPU; fluxo completo clicando nos botoes (testei por funcoes); jogo salvo antigo real.
+- Decisao a confirmar: "Igual a minha" como padrao da finalizacao (em vez de aleatoria) para nao mudar o jogo atual.

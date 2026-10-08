@@ -1,0 +1,18 @@
+BRARESULTS - PARTE B5e CONCLUIDA (ICONES DAS CRIACOES) - app v1.9.38
+================================================================
+Como usar: cole este arquivo no inicio de um novo chat e anexe o braresults-app-v1938.zip.
+Complementa B5d (v1937) e anteriores. As REGRAS DE TRABALHO continuam valendo.
+
+O QUE A B5e ENTREGOU (v1.9.38)
+- www/custom.js (linha ~10): ico() agora aceita o NOME de um icone desenhado (ex.: raio, fogo, escudo, mira, gelo, bolt, flame...) alem de emoji. Novo ICA (apelidos em portugues) e icoN(): procura em IC.map (icons.js) o emoji que corresponde ao nome e guarda esse emoji. Assim canvas e textos seguem funcionando e as telas HTML mostram o SVG via icons.js.
+- Nao existe editor/seletor de icone no app (a criacao e um JSON colado), entao a escolha e feita escrevendo o nome no campo icone.
+- Nome desconhecido ou simbolo (seta, estrela, caixa) cai no comportamento antigo (primeiros 2 caracteres).
+- README.md: secao v1.9.38. Versao 1.9.38 em custom.js, fight.js e package.json.
+
+Testado
+- node --check em custom.js; ico() testado em Node com um IC.map reduzido: raio, Fogo, bolt, shield viram emoji; emoji direto, nome desconhecido e '<b>' mantem o comportamento antigo.
+NAO testado
+- Importar uma criacao real com icone por nome no app; aparelho real.
+- Os icones desenhados que ainda nao existem no icons.js (so os 8 PTI e os ~70 do icons.js funcionam por nome).
+PENDENTE
+- Textos de menu com emoji que nao estao no icons.js (ex.: lista de finalizacoes ~linha 438 de fight.js).

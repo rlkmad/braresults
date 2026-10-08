@@ -1,0 +1,38 @@
+BRARESULTS - ARMAS PROPRIAS, PARTE 7 CONCLUIDA (SONS POR ARMA) - app v1.9.45
+================================================================
+Como usar: cole este arquivo + os TXT das Partes 1 a 6 no inicio de um novo chat e anexe o braresults-app-v1945.zip. As REGRAS DE TRABALHO continuam valendo.
+
+O QUE A PARTE 7 ENTREGOU
+- www/sfx/: 6 swings novos (swing_axe, swing_hammer, swing_pick, swing_staff, swing_book, swing_scepter), gerados por tools/sfx_armas.py (numpy + ffmpeg). Antes Machado/Martelo/Picareta dividiam swing_heavy e Cajado/Livro/Cetro dividiam swing_magic.
+- www/sfx.js: tabela SW (arma -> arquivo) e LIST atualizadas. Agora as 20 armas tocam 20 arquivos diferentes ao atacar. Arquivo ausente cai no som sintetizado antigo.
+- Versao 1.9.45 (custom.js, fight.js, package.json); README e sfx/LEIAME.txt atualizados.
+
+TESTADO
+- node --check sfx.js; Chromium: SFX.swing(0..19) toca 20 arquivos distintos (conferido pelo tamanho do buffer decodificado); nivel dos 6 arquivos novos entre -19 e -27 dB de media, pico -7 dB, igual aos swings antigos.
+- tools/sim: 24 lutas reais (Machado, Martelo, Cajado, Picareta, Livro, Cetro contra Espada, Pistola, Arco, Tridente), todas terminam, 0 erros JS.
+
+NAO TESTADO
+- Como os 6 sons SOAM (ninguem ouviu; so medi nivel e duracao). Volume relativo no aparelho real. Impacto por arma (hit_*), sons dos efeitos especiais (onda do Martelo, explosao da Bomba, queimadura das Chamas).
+
+PENDENTE (restante dos sons por arma = PARTE 8, fazer em outro chat)
+Hoje: as 20 armas tem swing proprio (feito). Faltam 3 coisas:
+
+1) IMPACTO PROPRIO POR ARMA (som de quando acerta)
+- Hoje SFX.hit(d,k,kb,wi) em sfx.js escolhe so 1 de 4 familias pela tabela HF (cut, blunt, shot, elem) x 3 forcas (l/m/h) = 12 arquivos hit_<fam>_<l|m|h>. Espada e Adaga soam iguais; Chamas, Gelo e Raio tambem.
+- Proposta: 1 arquivo por arma, hit_w<id> (id 0-19), com a forca (dano/empurrao) controlando volume e velocidade; as 12 familias ficam de reserva se faltar arquivo. Chamada vem de hitF em fight.js (SFX.hit(d,k,kb,a.wi)).
+- Ids: 0 Espada, 1 Machado, 2 Martelo, 3 Adaga, 4 Arco, 5 Cajado, 6 Escudo, 7 Tridente, 8 Picareta, 9 Taco, 10 Pistola, 11 Bomba, 12 Chamas, 13 Gelo, 14 Raio, 15 Katana, 16 Guitarra, 17 Livro, 18 Luvas, 19 Cetro Real.
+
+2) SONS DOS EFEITOS ESPECIAIS (tabela WB em fight.js, ~linha 716)
+- Onda do Martelo (shot2 dr:'swWave'), explosao da Bomba (shot2 ex:60, dr:'bmGren'; conferir se o boom ja toca), queimadura das Chamas (dotE), lentidao do Gelo (sl:1.5), tontura da Guitarra (oh com b.dz), clarao/risco da Katana (ring), avanco do Tridente, ignorar defesa da Picareta (ap).
+- Ganchos: opcoes de shot2 (ex, oh, sl, st) e o helper mel(). Tocar com SFX.p('nome') e listar o nome em LIST no sfx.js. Nomes sugeridos: fx_martelo, fx_bomba, fx_queima, fx_gelo, fx_tontura.
+
+3) PROJETIL EM VOO
+- Passagem da flecha e da bala (opcional: zunido curto ao disparar, junto do swing).
+
+COMO FAZER
+- Base: tools/sfx_armas.py (numpy + ffmpeg, gera .ogg mono 44,1 kHz, pico -7 dB, media entre -19 e -27 dB). Copiar o estilo e acrescentar as funcoes novas.
+- Ligar em sfx.js: LIST + (SFX.hit) para o impacto; arquivo ausente deve cair no som antigo.
+- Testar: node --check; Chromium conferindo que cada arma toca arquivo diferente (como na Parte 7); tools/sim com algumas lutas, 0 erros JS. Dizer que nao da para ouvir: pedir para o dono escutar no aparelho.
+
+OUTROS PENDENTES (nao sao de som)
+- Animacao de pose por arma; multiplicador por dificuldade ou ajuste da IA; mais sementes na validacao.

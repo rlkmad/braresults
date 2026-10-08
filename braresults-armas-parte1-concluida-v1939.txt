@@ -1,0 +1,24 @@
+BRARESULTS - ARMAS PROPRIAS, PARTE 1 CONCLUIDA (ARMAS DE LONGE) - app v1.9.39
+================================================================
+Como usar: cole este arquivo + braresults-armas-plano-v1938.txt no inicio de um novo chat e anexe o braresults-app-v1939.zip. As REGRAS DE TRABALHO continuam valendo.
+
+O QUE A PARTE 1 ENTREGOU
+- www/fight.js: tabela WB (logo antes de BRC.ctx, depois de cast). Campos: c cooldown, m mult. de dano (sobre 8*HS*W.a), r alcance da IA, k distancia preferida da IA, fn disparo (usa shot2).
+- Ataque basico (~linha 799): se WB[f.wi] existe, usa o cooldown da tabela, mira com aimA, dispara e marca f.did=1 (sem soco). Fora da tabela: golpe antigo.
+- IA (~linha 785): arma de longe mantem distancia k, ataca se 60<ad<r e |dy|<110, chance LV.a*1.5.
+- Arma / cooldown / mult / projetil:
+  Pistola(10) .55 / 1.5 / tiro reto rapido | Arco(4) .8 / 1.2 / flecha longa | Cajado(5) .7 / 1.9 / bola de poder (emoji) | Chamas(12) .6 / 1.0 / bola de fogo (stFire) + queimadura 3 s | Gelo(13) .65 / 1.2 / estilhaco + lentidao 1,5 s | Raio(14) .5 / 1.0 / raio rapido.
+- Versao 1.9.39 em custom.js, fight.js e package.json; README atualizado.
+
+TESTADO
+- node --check fight.js.
+- tools/sim (Chromium headless, sem despertar, dificuldade 1, 4 sementes): cada arma de longe contra Espada, Machado, Adaga e Tridente, 0 erros JS, todas as lutas terminam. Vitorias das armas de longe em 16 lutas: Pistola 10, Arco 9, Cajado 5, Chamas 13, Gelo 11, Raio 9 (inicial era Arco 14, Chamas 13, Pistola 5, Cajado 4: ja ajustei os multiplicadores uma vez).
+- PNG de previa (Cajado x Chamas, bola de fogo em voo).
+
+NAO TESTADO
+- Aparelho real / toque; mira manual (f.mn) com essas armas; modo treino (trAi ainda ataca so a <90 px); PvP; mapas com plataformas; sons novos (usa os swing atuais: gun, bow, magic, fire, ice, zap).
+- Visual do projetil do Cajado (emoji de bola de cristal) e Gelo/Raio/Pistola/Arco (linhas luminosas) so conferido pelo Cajado x Chamas.
+
+PENDENTE / PARA A PARTE 3
+- Chamas ainda forte (13/16) e Cajado fraco (5/16, varios empates por tempo): ajustar na rodada de balanceamento.
+- Projetil de Arco/Pistola poderia ter desenho proprio (flecha, bala).

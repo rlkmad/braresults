@@ -1,0 +1,17 @@
+BRARESULTS - NOVAS IDEIAS, PARTE 2 CONCLUIDA (OPCAO ALEATORIO) - app v1.9.50
+================================================================
+Como usar: cole este arquivo + os TXT 1a e 1b + braresults-novas-ideias-3-partes.txt + os TXT das armas 1 a 9 no inicio de um novo chat e anexe o braresults-app-v1950.zip. As REGRAS DE TRABALHO continuam valendo. Proximo: Parte 3 (pular finalizacao + contador de FPS).
+
+O QUE A PARTE 2 ENTREGOU (www/fight.js)
+- RND={w1,w2,a1,a2,f,d1,d2,d3,m,l:{ultimos}} persistido em ST 'rnd' (rndSave). Helpers: rndPick(k,lista) (nunca repete RND.l[k] se houver outra opcao), rndLists (armas FD.W, acessorios FD.A, mapas FD.M sem /Dojo/, finalizacoes FIN_OK>0, despertares Object.keys(AWD)), rndRoll, rndBack, rndTxt; grupos RG/rgOn/rgAny/rallOn.
+- go: validacao aceita categoria em aleatorio; depois de ST.set('sel') chama rndRoll() (guarda os manuais em RM e sorteia WP/WP2/AC/AC2/FK/MP/AW/AW2/AWE). rndBack() restaura em screenSetup() e stop() (o menu e o 'sel' salvo sempre guardam o valor manual). Treino: so w1/a1.
+- UI: slot() mostra "🎲 Aleatorio" (rk = k+PL ou 'm'); botao "🎲 Aleatorio" no rodape de screenPick (prnd; para a CPU continua CPW/CPA=-1); chip "🎲 Aleatoria" na Finalizacao (rt/f); opcao '*' no carrossel do Despertar (indice 2) para jogador 1/2/CPU; "🎲 Tudo aleatorio" (rall); bloco "Aleatorio" em Opcoes (rg, por categoria, liga os dois lutadores). pickDone/fk/aok desligam o aleatorio da categoria.
+- CPU em aleatorio (screenLoad): rndPick('cw'|'ca'|'cf') tambem sem repetir. Tela de carregamento: linha "🎲 Arma: .. · Mapa: .. · Finalizacao: .. · Despertar: ..".
+- Versao 1.9.50 (custom.js, fight.js, package.json); README atualizado.
+
+TESTADO
+- node --check; Chromium (copia sim, clicando no LUTAR real): vs CPU tudo aleatorio, 6 lutas seguidas: arma, acessorio, mapa, finalizacao, despertar e arma da CPU nunca repetiram o anterior; PvP tudo aleatorio, 4 lutas, idem; aleatorio desligado mantem os itens fixos; os valores manuais voltam apos cada luta; persistencia apos recarregar a pagina; 0 erros JS. tools/sim: 12 lutas, 0 erros. PNGs: previa-parte2-menu / -escolha / -opcoes / -carregando.
+
+NAO TESTADO
+- Aparelho real/toque. Com so 2 despertares o aleatorio apenas alterna Frenesi Brasileira / Tempo Caotico (esperado). Despertares/armas personalizadas no sorteio (entram, mas nao testei uma real); finalizacoes BRC.FO sorteadas; botao 🎲 do rodape da tela de escolha em tela muito pequena; modo treino sorteando arma/acessorio em luta real.
+- Decisoes tomadas (confirmar): sorteio de arma/acessorio inclui personalizados; nao sorteia "Nenhuma" finalizacao nem "Nenhum" despertar; bloco de Opcoes liga os dois lutadores de uma vez.

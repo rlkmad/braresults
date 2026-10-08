@@ -2,6 +2,78 @@
 
 App Android (Capacitor). A interface fica em `www/` (HTML/CSS/JS puro) e busca os dados direto do TSE pelo HTTP nativo (sem CORS). Não usa nenhum servidor próprio.
 
+## v1.9.33 - Parte B2b: invocacoes (cao, caveira, espirito) desenhadas
+O bloco 'invocar' das criacoes (custom.js) usa SUMD.cao/caveira/espirito no lugar de emoji; tiro, dano e duracao inalterados.
+
+## v1.9.32 - Parte B4 (lote 3): bola de beisebol, estrela ninja, nota musical, papel e decreto desenhados
+btRico, ktStar, gtWave, bkPaper e crDecree agora usam dr:'nome' + DRW + EMC (hitbox, dano e efeitos inalterados).
+
+## v1.9.31 - Parte B4 (lote 2): fogo, bola de fogo e pedra desenhados
+- Bola de fogo em chamas (stFire), meteoro com cauda (flBall) e pedra irregular que gira (pkRock) deixaram de ser emoji. Brilho reduzido nos três. Dano, trajetória, explosão, fogo no chão e hitbox inalterados. Desenhos em DRW.stFire, DRW.flBall e DRW.pkRock (fight.js).
+
+## v1.9.30 - Parte B4 (lote 1): meia-lua, machado e adagas desenhados
+- Meia-lua de aço (swWave) com listras de velocidade, Machado bumerangue (axBoom, gira como antes) e Leque de adagas (dgFan, agora apontadas na direção do voo em vez de girar) deixaram de ser emoji. Brilho reduzido nesses três para o desenho aparecer. Dano, velocidade e hitbox inalterados. Desenhos em DRW.swWave, DRW.axBoom e DRW.dgFan (fight.js).
+
+## v1.9.29 - Parte B3: bomba e mina desenhadas
+- Granada (bmGren): bomba preta com brilho, tampa e pavio que vai queimando com faísca; pisca em vermelho no fim do pavio. Mina (bmMine): disco blindado com rebites e luz de LED (âmbar armando, vermelha piscando armada) e bip a cada piscada (novo som sintetizado 'bip' em sfx.js). Lógica, dano, pavio e hitbox inalterados. Desenhos em DRW.bmGren e DRW.bmMine (fight.js).
+
+## v1.9.28 - Parte B2: Guarda Real desenhado (Chamado/crGuard)
+- O guarda deixou de ser o emoji: agora é um boneco desenhado em canvas (chapéu alto preto, casaco vermelho com faixa branca, calça escura, fuzil com baioneta), com respiração leve, entrada/saída suaves, recuo e clarão ao atirar, virado para o alvo. Cada tiro toca swing_gun. Tiro, cadência e hitbox inalterados. Desenho em DRW.crGuard (fight.js).
+
+## v1.9.27 - Parte B1: onda d'água desenhada (Tridente)
+- Projétil Maré (trTide) agora é desenhado em canvas (crista curva, espuma, gotas, gradiente azul) no lugar do emoji; hitbox inalterada. Novo mapa DRW em fight.js (dr:'nome' no shot2). A onda das criações (custom.js) usa o mesmo desenho.
+
+## v1.9.26 - Símbolos simples também viram ícones
+- `icons.js` ganhou 15 ícones para os símbolos de texto: ← → ▶ ◀ ✔ ✖ ✕ ↺ ↻ ● ⬤ ★ ☆ ⚑ ⌖ ▢ ☐ ☑ (voltar, avançar, play, check, fechar, desfazer, refazer, pontos pequeno/grande, estrela cheia/vazia, bandeira, mira, caixas).
+- Em atributos (placeholder, title) só os emojis são removidos; os símbolos ficam.
+- Textos desenhados no canvas (ex.: "★ 0" sobre a cabeça) continuam como estão.
+
+## v1.9.25 - Ícones próprios (sem emojis nos botões)
+- Novo `www/icons.js`: ~70 ícones SVG desenhados à mão (traço, cor do texto) trocam automaticamente os emojis de botões, menus, abas e textos da interface (luta, Treinamento, Minhas criações, Biblioteca e app). Funciona também em telas criadas depois (MutationObserver). Placeholders e títulos perdem o emoji. API: `IC.i('nome')`.
+- Emojis fora da lista (ex.: ícone escolhido pelo usuário em uma criação) ficam como estão.
+- Canvas: removidos emojis de textos ("DESPERTAR PRONTO", avisos do treino, "Teste"); miniatura de som desenha alto-falante.
+- Ainda emoji (Parte B, próximo passo): poderes/projéteis no canvas, guarda real, status sobre a cabeça.
+
+## v1.9.24 - Mira em seta
+- O indicador de mira agora é só uma seta pequena ao lado da cabeça do personagem, apontando na direção da mira (branca; vermelha quando o inimigo está na linha de tiro). Sem linha, círculo ou números.
+
+## v1.9.23 - Mira minimalista e mais precisa
+- Indicador novo: só uma linha pontilhada que some com a distância (sem círculo, cruz nem graus). Fica sólida e vermelha, com um anel no inimigo, quando a mira está no alvo.
+- Ímã no alvo: mirando manualmente, o ângulo trava no inimigo quando passa a ~6 graus dele (opção "Mira: ímã no alvo" em Opções, ligada por padrão).
+- Mira suave: o ângulo começa de onde a mira automática estava e acompanha o joystick sem pulos.
+
+## v1.9.22 - Menu principal se adapta à tela
+- O menu agora mede o espaço real disponível (em px CSS, que já leva em conta a densidade/dpi do aparelho) e reduz o conteúdo (até 45%) para caber inteiro, sem cortar o título nem o botão "Voltar ao app". Reajusta ao girar a tela ou mudar o tamanho.
+
+## v1.9.21 - Treinamento (etapa c): ferramentas
+- Novos botões (só ícones): ⚡ recarga zerada (poderes, dash e despertar), 🐢 velocidade 1×/½×/¼×, ✨ ativar despertar agora, 🎬 disparar a finalização escolhida no boneco, ▢ mostrar caixas de colisão dos lutadores.
+- Números de dano sobre os lutadores e contador "dano · dps · maior golpe" (você no boneco; DPS dos últimos 3 s); ↺ zera o contador.
+
+## v1.9.20 - Treinamento (etapa b): catálogo
+- Botão 📖 no treino abre o catálogo (painel compacto, só ícones) para trocar na hora, em você ou no boneco: candidato (lista do TSE já carregada), arma, acessório, poder 1/2/3 (qualquer poder de qualquer arma), finalização e despertar (inclui importados e da biblioteca). Tem busca e pré-carrega o sprite antes de trocar.
+- Botões do treino menores (só ícones); o texto "TREINO · boneco ... · imortal" mostra o estado.
+
+## v1.9.19 - Treinamento (etapa a)
+- Botão "🏋 Treinamento" no menu: escolhe lutador, arma e acessório e entra no Dojo de Treinamento (mapa próprio, só no treino; não aparece na lista de mapas).
+- Sem placar, sem fim de rodada e sem derrota. Boneco de teste no lugar do adversário: Parado, Andando, Atacando ou Bloqueando; Imortal (vida volta sozinha) ou Vida normal (revive em ~1,2 s); botão Reviver/resetar.
+
+## v1.9.18 - HUD nítido
+- Nome, vida e barra de despertar agora são desenhados em um canvas separado, na resolução real da tela (até 2x), em vez de esticados do canvas do jogo.
+- "ROUND · vitórias × vitórias · tempo" saiu do centro e foi para o canto esquerdo, ao lado dos botões Sair e Pause (texto HTML nítido).
+
+## v1.9.17 - Tela de carregar com o visual do menu
+- Mesmo fundo (bandeira, holofote, ringue), luvas e título "LUTA / DE CANDIDATOS" do menu; fotos com VS, barra, etapa, dica e bolinha de porcentagem.
+
+## v1.9.16 - Tela de carregar de verdade
+- Carrega antes da luta: fotos dos lutadores, sprites de arma e acessório (inclusive os do inimigo, sorteados já na carga), brilhos e um quadro de aquecimento do canvas. Sem esperas falsas.
+- Progresso real (tarefas concluídas / total), nome da etapa, bolinha de porcentagem no canto inferior, fotos com VS e dicas que trocam.
+- Cada tarefa tem limite de tempo; se uma imagem falhar, a luta segue sem ela.
+
+## v1.9.15 - Tela cortada no jogo girado
+- As unidades vh do menu/carregar mediam o lado errado da tela quando o jogo gira (retrato); agora usam a altura real do contêiner (--v).
+- Margens de área segura (entalhe/barras) no menu, mapeadas para o lado certo após o giro.
+- Botões do menu compactos em telas baixas; tentativa de tela cheia durante o jogo.
+
 ## v1.9.14 - Barra de progresso real no download
 - Ao adicionar ou testar uma criação da biblioteca, a barra verde segue os bytes que chegam (de 10% a 90%); validar e instalar completam até 100%. Se o aparelho não permitir leitura em fluxo, volta ao comportamento anterior (10% → 90% → 95%).
 
@@ -147,7 +219,7 @@ Todas as ideias de melhoria, com status, estão em [`IDEIAS.md`](IDEIAS.md).
 - Candidatos por cargo (Presidente, Governador, Senador, Dep. Federal/Estadual) com busca; arma, acessório e mapa por seletor com setas.
 - 20 armas e 25 acessórios com sprites (`www/fight-sprites.js`); modo vs CPU e 2 jogadores (tela dividida).
 - Teclado: J1 = WASD, J K L, 1 2 3 · J2 = setas, `,` `.` `/`, 8 9 0. Botão ⏸ pausa. Escolhas ficam salvas.
-- **Despertar** (só Flávio Bolsonaro e Lula): carrega durante os primeiros 60 s de luta (botão mostra ⏳ e a barra abaixo da vida enche); quando fica 🔥 PRONTO, o botão (tecla Q no J1 / M no J2) ativa a aura (verde para Flávio, vermelha para Lula) por 20 s. Quando acaba, começa um novo timer de 60 s para usar de novo (cada round recomeça do zero). Os 3 poderes causam +20% (Flávio) / +15% (Lula) de dano e libera o 4º poder (botão ☄️/🌩️, tecla E no J1 / N no J2), 1 vez por despertar, com cutscene. **Esfera do Brasil** (Flávio, 48 de dano direto, de 300 de vida): fica na mão após a cutscene e é lançada em linha reta pelo botão 🚀 LANÇAR (ou sozinha após 3 s), sem teleguiar; dá para desviar pulando ou com dash. **Tempestade Vermelha** (Lula): 44 raios caem em pontos aleatórios do mapa todo, cada um avisado por um círculo vermelho no chão por ~0,65 s (11 de dano direto); dá para sair de baixo, usar dash, ou se proteger embaixo de uma plataforma; o próprio Lula não é atingido. A CPU também usa o despertar e tenta desviar (mais ou menos conforme a dificuldade). Constantes no topo de `fight.js` (`AWC`, `AWDUR`, `STN`, `STI`, `STW`, `SR`, `SBS`, `HOLDT`).
+- **Despertar** (só Flávio Bolsonaro e Lula): carrega durante os primeiros 60 s de luta (botão mostra ⏳ e a barra abaixo da vida enche); quando fica 🔥 PRONTO, o botão (tecla Q no J1 / M no J2) ativa a aura (verde para Flávio, vermelha para Lula) por 20 s. Quando acaba, começa um novo timer de 60 s para usar de novo (cada round recomeça do zero). Os 3 poderes causam +20% (Flávio) / +15% (Lula) de dano e libera o 4º poder (botão ☄️/🌩️, tecla E no J1 / N no J2), 1 vez por despertar, com cutscene. **Frenesi Brasileira** (Flávio, 48 de dano direto, de 300 de vida): fica na mão após a cutscene e é lançada em linha reta pelo botão 🚀 LANÇAR (ou sozinha após 3 s), sem teleguiar; dá para desviar pulando ou com dash. **Tempo Caótico** (Lula): 44 raios caem em pontos aleatórios do mapa todo, cada um avisado por um círculo vermelho no chão por ~0,65 s (11 de dano direto); dá para sair de baixo, usar dash, ou se proteger embaixo de uma plataforma; o próprio Lula não é atingido. A CPU também usa o despertar e tenta desviar (mais ou menos conforme a dificuldade). Constantes no topo de `fight.js` (`AWC`, `AWDUR`, `STN`, `STI`, `STW`, `SR`, `SBS`, `HOLDT`).
 
 - v1.6.1 (Parte 1 do plano de melhorias do jogo): bonecos com ragdoll articulado (cabeça, pescoço, tronco, cotovelos, mãos, joelhos e pés), câmera com zoom automático, mapa 2× maior (1600 de largura), sistema de rounds com contador de vitórias (★) acima da cabeça de cada lutador e K.O. em câmera lenta.
 - v1.6.1 (Parte 2A): Despertar carregável em 60 s de luta com recarga de 60 s depois que acaba; Esfera do Brasil lançável (sem teleguiar, desviável); Tempestade Vermelha com raios aleatórios por todo o mapa (sem teleguiar, desviável); dash passa a ter invulnerabilidade curta contra os poderes finais; medidor do Despertar na barra de vida.
@@ -192,3 +264,73 @@ Novos arquivos em www/sfx: ko, boom, boom_b, splat_big, win_good, win_bad, fin1.
 - Botão **📚 Enviar** em cada criação salva e no rascunho (Minhas criações) abre a tela de envio (`www/lib.js`, `data-a` começando com `brcu`): nome, apelido (autor), aceite de termos (1ª vez) e **Enviar agora**. Só habilita depois de **🧪 Testar** na sessão (`BRC.lib.tested`).
 - Publica na hora (`status:'aprovado'`, `Prefer: return=minimal`), `hash = pkg.id` (duplicata = 409 "já existe"), `tamanho_bytes` = tamanho dos `dados`. Limites no app: 5 envios/24 h por aparelho, filtro de palavras no nome/apelido, foto obrigatória (gerada se faltar), reenvio da mesma criação bloqueado. Estado local: `brc_nick`, `brc_terms`, `brc_upl`, `brc_sent`.
 - SQL atualizado (`supabase-biblioteca.sql`: insert exige hash e foto; limite de tamanho dos dados) e novo `supabase-moderacao.sql` (consultas para remover/restaurar pelo painel).
+
+## v1.9.38 — Ícones desenhados nas criações (B5e)
+- Em qualquer campo `icone` de uma criação, além de emoji, dá para escrever o nome de um ícone desenhado (ex.: `raio`, `fogo`, `escudo`, `mira`, `gelo`, `cometa`, `cura`, `explosao`, `tempestade`, `vento`, `soco`, `espada`, `caveira`, `coracao`, `estrela`, `foguete`, `sangue`, `cao`, `bomba`, `coroa`, `vulcao`, ou os nomes de `IC.names()` como `bolt`, `flame`). O app guarda o emoji equivalente, que o `icons.js` troca pelo SVG nas telas.
+- Os 8 ícones de poder (PTI) da luta passaram a ser SVG (v1.9.37).
+
+## v1.9.39 — Armas com ataque próprio, Parte 1 (armas de longe)
+- `www/fight.js`: nova tabela `WB` (perto de `cast`) com cooldown, multiplicador de dano, alcance e distância preferida da IA por arma. O ataque básico consulta `WB[f.wi]`; arma fora da tabela mantém o golpe antigo (0,45 s / 85 px).
+- Pistola (tiro reto, 0,55 s), Arco (flecha, 0,8 s), Cajado (bola de poder, 0,7 s), Chamas (bola de fogo que queima, 0,6 s), Gelo (estilhaço que desacelera, 0,65 s), Raio (raio rápido, 0,5 s). Reaproveitam `shot2`/`PR` dos poderes.
+- IA: com arma de longe mantém distância e atira até ~560–700 px.
+
+## v1.9.40 — Armas com ataque próprio, Parte 2 (corpo a corpo)
+- `www/fight.js`: tabela `WB` ganhou 9 armas corpo a corpo, via helper `mel` (golpe com atraso de 0,07 s, alcance e empurrão próprios). Adaga .25 s, Luvas .3 s (2 golpes), Espada .35 s, Katana .4 s (alcance 135), Picareta .6 s (ignora defesa), Tridente .6 s (alcance 150 + avanço), Taco .7 s (empurrão forte), Machado .75 s, Martelo .9 s (onda no chão que atordoa).
+- IA usa o alcance de cada arma para se aproximar e atacar.
+
+## v1.9.41 — Armas com ataque próprio, Parte 3 (restantes)
+- `www/fight.js`: tabela `WB` ganhou Escudo (golpe curto com empurrão, .5 s), Bomba (granada de pavio curto que explode no impacto, .8 s), Guitarra (onda sonora curta que deixa o inimigo tonto 0,8 s, .6 s), Livro (bola de papel, .5 s) e Cetro Real (orbe do decreto, .6 s). Todas as 20 armas agora têm ataque básico próprio.
+- Multiplicadores ajustados por simulação (Escudo 1.25, Bomba 1.7, Guitarra .6, Livro 1.15, Cetro .9).
+
+## v1.9.42 — Balanceamento geral das 20 armas
+- Multiplicadores de dano (`m` na tabela `WB` de `www/fight.js`) reajustados por simulação (matriz 20x20, 3 sementes por rodada, 9 rodadas). Antes: Pistola 82% e Adaga 19% de vitórias; depois, quase todas entre 44% e 58%.
+- Valores atuais (arma:cooldown,mult): 10:{c:.55,m:0.46 4:{c:.8,m:0.52 5:{c:.7,m:1.15 12:{c:.6,m:1.39 13:{c:.65,m:1.33 14:{c:.5,m:0.72 3:{c:.25,m:2.34 18:{c:.3,m:2.1 0:{c:.35,m:1.93 15:{c:.4,m:1.13 8:{c:.6,m:1.55 7:{c:.6,m:1.0 9:{c:.7,m:2.17 1:{c:.75,m:1.71 6:{c:.5,m:1.34 11:{c:.8,m:1.6 16:{c:.6,m:0.51 17:{c:.5,m:0.9 19:{c:.6,m:1.1 2:{c:.9,m:1.3 
+
+## v1.9.43 — Balanceamento nas dificuldades 0, 1 e 2
+- Multiplicadores `m` da tabela `WB` reajustados pela média das três dificuldades (matriz 20x20, 4 rodadas). Valores: 10:{c:.55,m:0.48 4:{c:.8,m:0.48 5:{c:.7,m:1.4 12:{c:.6,m:1.49 13:{c:.65,m:1.51 14:{c:.5,m:0.73 3:{c:.25,m:2.53 18:{c:.3,m:2.08 0:{c:.35,m:1.94 15:{c:.4,m:1.12 8:{c:.6,m:1.63 7:{c:.6,m:0.91 9:{c:.7,m:2.05 1:{c:.75,m:1.75 6:{c:.5,m:1.44 11:{c:.8,m:1.74 16:{c:.6,m:0.47 17:{c:.5,m:0.95 19:{c:.6,m:1.09 2:{c:.9,m:1.14 
+
+## v1.9.44 — Projéteis próprios de Arco e Pistola
+- `www/fight.js`: novos desenhos `DRW.bala` (bala de latão com rastro luminoso curto) e `DRW.flecha` (haste de madeira, ponta de aço, penas vermelha/branca, gira com a direção do voo). Pistola (10) e Arco (4) na tabela `WB` passaram de `ln` (linha luminosa) para `dr:'bala'` / `dr:'flecha'`. Dano, velocidade, cooldown e hitbox (`sz`) não mudaram, então o balanceamento da v1.9.43 vale igual.
+
+## v1.9.45 — Som próprio de ataque para cada uma das 20 armas
+- `www/sfx/`: 6 arquivos novos de swing (`swing_axe`, `swing_hammer`, `swing_pick`, `swing_staff`, `swing_book`, `swing_scepter`), gerados por `tools/sfx_armas.py`. Antes Machado/Martelo/Picareta dividiam `swing_heavy` e Cajado/Livro/Cetro Real dividiam `swing_magic` (só mudava o tom).
+- `www/sfx.js`: tabela `SW` aponta Machado, Martelo, Picareta, Cajado, Livro e Cetro Real para os arquivos novos (todos tocados em velocidade 1) e os 6 nomes entraram em `LIST`. Se um arquivo faltar, cai no som sintetizado antigo. Sons de impacto (`hit_*`) não mudaram.
+
+## v1.9.46 — Parte 8: impacto próprio por arma, sons dos efeitos especiais e zunido de projétil
+- `www/sfx/`: 30 arquivos novos gerados por `tools/sfx_armas8.py` (numpy + ffmpeg): `hit_w0` a `hit_w19` (impacto de cada arma, id = índice da arma), `fx_martelo`, `fx_bomba`, `fx_queima`, `fx_gelo`, `fx_tontura`, `fx_katana`, `fx_tridente`, `fx_picareta`, `fx_flecha`, `fx_bala`.
+- `www/sfx.js`: `SFX.hit` toca `hit_w<arma>` com volume e velocidade pela força do golpe (dano + empurrão); sem o arquivo cai nas 12 famílias `hit_<fam>_<l|m|h>` e depois no som sintetizado. Nomes novos em `LIST`; `VG` ajusta o ganho de alguns.
+- `www/fight.js`: opção `sx` nos projéteis (toca ao acertar; na explosão quando há `ex`): Chamas `fx_queima`, Gelo `fx_gelo`, Bomba `fx_bomba`, Guitarra `fx_tontura`. Disparo: `fx_flecha` (Arco), `fx_bala` (Pistola). Início do ataque: `fx_martelo`, `fx_katana`, `fx_tridente`. Picareta: `fx_picareta` no golpe que ignora defesa (em `hitF`). Dano, alcance e balanceamento não mudaram.
+
+## v1.9.47 — Pegada própria para cada arma (poses)
+- `www/fight.js`: tabela `HG` (armas 0-19) define como cada arma é segurada: ângulo de repouso `R`, posição da mão da frente `H`, 2ª mão (`B` ao longo da arma, `BO` fixa, `BA` no golpe), arco do golpe (`S` ângulo, `A` caminho da mão), mira (`M`/`AR`/`BM`: braço e arma seguem a direção do tiro, inclusive ao usar poderes) e escala `k`. `pose()` posiciona as mãos e `body()` desenha a arma com ângulo suavizado e as duas mãos por cima do cabo.
+- Jeitos: Espada em guarda diagonal; Machado, Martelo, Picareta e Taco apoiados no ombro (Martelo e Taco com as duas mãos) e golpe por cima; Adaga baixa e estocada curta; Arco e Pistola esticados e apontando para o alvo (Arco puxa a corda com a 2ª mão); Cajado, Chamas, Gelo, Raio e Cetro apontados para o alvo ao atacar/usar poder; Escudo na frente com empurrão; Tridente e Katana com as duas mãos; Guitarra atravessada no corpo (2ª mão no braço); Livro no peito; Luvas em guarda de boxe com jab alternado; Bomba levantada e arremesso por cima.
+- Armas personalizadas (id 20+) continuam com o jeito antigo. Dano, alcance e balanceamento não mudaram. Versão 1.9.47.
+
+## v1.9.48 — Parte 1a: escolher arma, acessório e finalização da CPU
+- Em "Monte sua luta" (vs CPU) há a seção "Adversário (CPU)": slots de Poder e Bônus (🎲 Aleatório por padrão; a lista inclui armas/acessórios personalizados) e chips de Finalização da CPU: "🤝 Igual à minha" (padrão, comportamento antigo), "🎲 Aleatória" ou uma finalização específica.
+- Quando a CPU vence, executa a SUA finalização; quando o jogador vence, a dele. A finalização do jogador é restaurada ao sair da luta.
+- A escolha é salva junto de 'sel' (CPW, CPA, CPF); jogos salvos antigos abrem como aleatório/igual. A tela de carregamento mostra arma e acessório da CPU. PvP e treino sem mudança.
+
+## v1.9.49 — Parte 1b: despertar escolhível (jogador 1, jogador 2 e CPU)
+- O despertar deixou de pertencer ao candidato: novo slot "Despertar" na tela "Monte sua luta" (jogador 1/2) e na seção "Adversário (CPU)". Opções: "Do candidato" (padrão, comportamento antigo), "🚫 Nenhum" ou qualquer despertar de AWD (os dois originais e os personalizados). Na CPU o padrão é "Aleatório" (só tem despertar se o adversário sorteado tiver um, como antes).
+- Valores guardados em ST 'sel' (AW, AW2, AWE; ausente = 'auto'); despertar personalizado removido volta para 'auto'. Aplicado em start() depois de criar P e E; o botão do HUD lê a escolha; "Nenhum" não mostra botão nem aciona pelas teclas. A CPU usa o despertar escolhido (awaken + poder final).
+- Nomes novos: Flávio = **Frenesi Brasileira** (antes Esfera do Brasil), Lula = **Tempo Caótico** (antes Tempestade Vermelha). Chaves internas 'flavio' e 'lula' inalteradas. Seção "Despertar" acima atualizada; o histórico das versões antigas mantém os nomes antigos.
+- Removido o aviso "🔥 Despertar disponível" do card dos candidatos. A tela de carregamento mostra o despertar escolhido de cada lado. Modo treino mantém o editor.
+
+## v1.9.50 — Parte 2: opção 🎲 Aleatório (arma, acessório, finalização, despertar e mapa)
+- Cada categoria pode ficar em aleatório: a cada vez que você aperta LUTAR o jogo sorteia um item diferente do anterior (nunca repete, se houver mais de um). Vale para jogador 1, jogador 2 (PvP) e CPU.
+- Onde ligar: botão "🎲 Aleatório" na tela de escolha de arma/acessório/mapa; chip "🎲 Aleatória" na Finalização; opção "🎲 Aleatório" no carrossel do Despertar; "🎲 Tudo aleatório" no menu; bloco "Aleatório (muda a cada luta)" em Opções (por categoria, vale para os dois lutadores). O slot mostra "🎲 Aleatório · Muda a cada luta". Escolher um item manualmente desliga o aleatório daquela categoria.
+- Sorteio: armas e acessórios (inclui personalizados), mapas (sem o Dojo de Treinamento), finalizações liberadas (sem "Nenhuma") e despertares existentes (sem "Nenhum"). A CPU em aleatório (arma, acessório, finalização) também não repete a da luta anterior.
+- Sua escolha manual não é perdida: o sorteio vale só para a luta e, ao voltar ao menu, os valores fixos voltam. A tela de carregamento mostra "🎲 Arma · Mapa · Finalização · Despertar" sorteados. No treino só arma e acessório sorteiam. Estado salvo em ST 'rnd'.
+
+## v1.9.51 — Parte 3: pular a finalização + contador de FPS
+- Durante a cena de finalização aparece o botão "⏭ Pular" ao lado de Sair/Pausa. Pular encerra a cena na hora: para o som, toca o som de vitória, limpa partículas/sangue/cabeça/esqueleto, esconde o perdedor e segue para o próximo round ou resultado normalmente (o ponto da vitória já foi contado no KO).
+- Opções > "Finalização e desempenho": Cena de finalização = "Sempre mostrar" (sem botão), "Permitir pular" (padrão) ou "Sempre pular" (não executa a cena; vai direto ao som de vitória). Contador de FPS na luta = Desligado (padrão) ou Ligado (número pequeno ao lado do placar do round, verde ≥50, amarelo ≥30, vermelho abaixo; atualiza a cada 0,5 s; pausa não conta).
+- Código: finEnd(F) compartilhado entre o fim natural e o pulo; skipFin(); fpsU(t) no começo do loop; OPT.fsk ('s'|'p'|'x') e OPT.fps ('n'|'s').
+
+## v1.9.52 — Correções da Parte 3 (pular finalização)
+- `www/fight.js`, Katana: pular agora deixa o mesmo estado final do fim natural (corpo no chão e cabeça solta pousada no chão, mesmo se pular antes do corte). Antes o perdedor sumia. Nas outras finalizações o perdedor continua sumindo.
+- `www/fight.js`, `skipFin()`: zera a pose de ataque do vencedor e o estado de dano do perdedor (antes ficavam congelados até o próximo round) e marca a vitória do vencedor.
+- `www/custom.js`: novo gancho `BRC.fend(F)`, chamado ao pular uma finalização personalizada (id >= 100); limpa ações, cortes, mordidas, textos, escurecimento, zoom e flash da cena. Auditoria: todo o estado das finalizações personalizadas fica no objeto da cena (F), então nada vaza para o próximo round.
+- O jogo não tem tela de resultado (os rounds seguem sem fim; sai-se pelo botão Sair). A verificação do "último round" virou teste de vários rounds seguidos pulando a finalização e depois sair da luta.
+- Teste automático novo: `tools/sim/test_skip.py`. Versão 1.9.52.

@@ -1,0 +1,22 @@
+BRARESULTS - CORRECOES DE PRIORIDADE ALTA DA PARTE 3 (PULAR FINALIZACAO) - app v1.9.52
+================================================================
+Continuacao da v1.9.51. As REGRAS DE TRABALHO continuam valendo para o que vier depois. Esta entrega so corrige o pulo da finalizacao; nao muda dano, balanceamento nem a cena natural.
+
+O QUE FOI CORRIGIDO
+1. Finalizacoes personalizadas (BRC.FO, id >= 100): auditado. Todo o estado da cena fica no objeto F (acoes, cortes, mordidas, textos, escurecimento, zoom, flash), que e descartado ao pular; nada fica em variavel global do custom.js. Corrigido o que sobrava: a pose de ataque do vencedor (w.atk) e o dano do perdedor (l.hit) ficavam congelados ate o proximo round. Novo gancho BRC.fend(F) (custom.js) limpa o estado da cena ao pular.
+2. Ultimo round / tela de resultado: o jogo NAO tem tela de resultado (os rounds seguem sem fim e se sai pelo botao Sair), entao o risco nao existe como descrito. Foi testado o equivalente: 8 rounds seguidos pulando a finalizacao (todas as 6) e depois Sair da luta.
+3. Katana ao pular: agora fica igual ao fim natural: corpo no chao e cabeca solta pousada no chao (inclusive se pular antes do corte, quando a cabeca e criada ja no chao). As outras finalizacoes continuam escondendo o perdedor, como no fim natural.
+4. PvP: testado por codigo (pular em 3 finalizacoes seguidas, som de vitoria tocado como vitoria). Pausa: pular com o jogo pausado funciona e o jogo continua ao despausar.
+- skipFin() tambem marca a vitoria do vencedor (w.win=1), como na cena natural.
+- Versao 1.9.52 (custom.js, fight.js, package.json); README atualizado.
+
+TESTADO
+- node --check; tools/sim/test_skip.py (novo): 6 finalizacoes (Socos, Katana, Raio, Caes, Bomba e uma personalizada id 100, o Trovao Sombrio) x 3 momentos de pulo (inicio, meio, perto do fim) = 18 cenarios, mais pulo duplo, rounds seguidos, pausa, sair da luta e PvP: 0 falhas, 0 erros JS. O mesmo teste rodado no codigo da v1.9.51 falha (w.atk e l.hit nas personalizadas), entao ele pega o problema.
+- tools/sim: 12 lutas completas, 0 erros, todas terminaram em KO.
+- Chromium com render real: Katana pulada aos 1,5 s e aos 4,5 s; perdedor visivel, cabeca no chao, proximo round normal. PNG: previa-katana-pular-v1952.
+
+NAO TESTADO
+- Aparelho real/toque e FPS real em celular.
+- Treino (so o botao de finalizacao de teste, por codigo); pular em finalizacoes personalizadas com outros eventos alem dos do Trovao Sombrio (raio, corte, mordida, golpes, particulas, tremor, texto, explosao, escurecer, zoom, flash, som: cobertos so por esse exemplo).
+- Posicao exata da cabeca ao pular a Katana no meio do voo (fica a ~30% da distancia que ainda percorreria, pode diferir alguns pixels do fim natural).
+- Decisao a confirmar: no Katana o pulo nao esconde mais o perdedor.

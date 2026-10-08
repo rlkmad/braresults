@@ -1,0 +1,23 @@
+BRARESULTS - ARMAS PROPRIAS, PARTE 2 CONCLUIDA (CORPO A CORPO) - app v1.9.40
+================================================================
+Como usar: cole este arquivo + braresults-armas-plano-v1938.txt + o TXT da Parte 1 no inicio de um novo chat e anexe o braresults-app-v1940.zip. As REGRAS DE TRABALHO continuam valendo.
+
+O QUE A PARTE 2 ENTREGOU
+- www/fight.js: helper mel(f,d,alcance,stun,empurrao,opcoes,atraso) antes da tabela WB (golpe com atraso de 0,07 s, mede alcance na hora) e 9 entradas novas em WB.
+- Arma / cooldown / mult / alcance:
+  Adaga(3) .25 / 1.05 / 72 | Luvas(18) .3 / 1.15 / 70, 2 golpes | Espada(0) .35 / 1.0 / 90 | Katana(15) .4 / .65 / 135, com risco de luz | Picareta(8) .6 / 1.0 / 95, ignora defesa (ap) | Tridente(7) .6 / .95 / 150, avanca um pouco | Taco(9) .7 / 1.2 / 95, empurrao 560 | Machado(1) .75 / 1.25 / 100 | Martelo(2) .9 / 1.2, onda no chao que atordoa 0,6 s (alcance 300).
+- IA: arma corpo a corpo usa o proprio alcance para se aproximar (80%) e atacar.
+- Versao 1.9.40 (custom.js, fight.js, package.json); README atualizado.
+
+TESTADO
+- node --check; tools/sim (sem despertar, dificuldade 1, 4 sementes): as 9 armas contra Escudo, Livro, Cetro Real (ainda no golpe antigo) e Pistola. 0 erros JS, todas as lutas terminam. Vitorias em 16: Adaga 5, Luvas 6, Espada 5, Katana 11, Picareta 8, Tridente 10, Taco 9, Machado 10, Martelo 12 (a primeira rodada estava muito desigual; ajustei os multiplicadores duas vezes).
+- PNG de previa: Martelo x Tridente, onda do Martelo em voo.
+
+NAO TESTADO
+- Aparelho real, mira manual, PvP, modo treino (trAi ainda ataca a menos de 90 px), mapas com plataformas.
+- Luvas: segundo golpe e Picareta: efeito de ap contra escudo/defesa nao verificados visualmente.
+- Sons proprios (usa os swings atuais) e animacao de pose por arma (a pose continua a mesma).
+
+PENDENTE / PARA A PARTE 3
+- Martelo (12/16) e Katana (11/16) ainda fortes; Adaga, Espada e Luvas fracas contra armas de longe (Pistola vence quase todas).
+- Parte 3: Escudo, Bomba, Guitarra, Livro, Cetro Real, balanceamento geral, sons.

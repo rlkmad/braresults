@@ -1,0 +1,19 @@
+BRARESULTS - ARMAS PROPRIAS, PARTE 6 CONCLUIDA (PROJETEIS DE ARCO E PISTOLA) - app v1.9.44
+================================================================
+Como usar: cole este arquivo + os TXT das Partes 1 a 5 no inicio de um novo chat e anexe o braresults-app-v1944.zip. As REGRAS DE TRABALHO continuam valendo.
+
+O QUE A PARTE 6 ENTREGOU
+- www/fight.js: novos desenhos DRW.bala (bala de latao com rastro luminoso curto) e DRW.flecha (haste de madeira, ponta de aco, penas vermelha e branca; aponta na direcao do voo). Cores/brilho em EMC e no mapa gm do drawQ.
+- Tabela WB: Pistola(10) passou de ln:16 para dr:'bala'; Arco(4) de ln:24 para dr:'flecha'. Dano, velocidade, cooldown, hitbox (sz) e multiplicadores NAO mudaram: o balanceamento da v1.9.43 continua valendo.
+- Versao 1.9.44 (custom.js, fight.js, package.json); README atualizado.
+
+TESTADO
+- node --check fight.js; Chromium real (Pistola x Arco, dificuldade 1): bala e flecha desenhadas em voo, 0 erros JS. Previa conferida em zoom (bala OK; flecha visivel com penas e ponta).
+
+NAO TESTADO
+- Aparelho real, desempenho em aparelho fraco, PvP, modo treino, mira manual, mapas com plataformas.
+- Flecha em angulos extremos (mira para cima/baixo) so vista na horizontal.
+
+PENDENTE
+- Multiplicador por dificuldade ou ajuste da IA; mais sementes na validacao; sons e animacao de pose por arma.
+- Opcional: flecha com queda (gravidade) e fincar no chao; clarao no cano da Pistola.

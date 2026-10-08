@@ -42,7 +42,7 @@ nav button{padding:10px 0 8px;font-size:11px;color:var(--m)}nav button span{disp
 #toast{display:none;position:fixed;left:14px;right:14px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:9;background:var(--p2);border:1px solid var(--v);border-radius:14px;padding:12px 14px;font-size:13px;white-space:pre-line;box-shadow:0 8px 30px #0008}
 .fv{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--l);border-radius:10px;background:var(--p2);margin:6px 0;font-size:13px}
 .hd>button.st{color:var(--y)}
-</style><link rel="stylesheet" href="theme.css"></head><body><header id="h"></header><main id="app"></main><nav id="nv"></nav><div id="toast" role="status" aria-live="polite" aria-atomic="true"></div><script>
+</style><link rel="stylesheet" href="theme.css"></head><body><header id="h"></header><main id="app"></main><nav id="nv"></nav><div id="toast" role="status" aria-live="polite" aria-atomic="true"></div><script src="icons.js"></script><script>
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{for(const x of Object.keys(localStorage))if(x.startsWith('res:')||(x.startsWith('tl:')&&x!=='tl:'+k)||x.startsWith('tm:'))localStorage.removeItem(x);try{localStorage.setItem(k,JSON.stringify(v))}catch{}}}};
 const nf=new Intl.NumberFormat('pt-BR'),n=v=>nf.format(Math.round(v)),pc=v=>v.toFixed(2).replace('.',',')+'%';

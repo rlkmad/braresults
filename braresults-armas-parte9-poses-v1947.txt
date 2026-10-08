@@ -1,0 +1,19 @@
+BRARESULTS - ARMAS PROPRIAS, PARTE 9 CONCLUIDA (POSE/PEGADA POR ARMA) - app v1.9.47
+================================================================
+Como usar: cole este arquivo + os TXT das Partes 1 a 8 no inicio de um novo chat e anexe o braresults-app-v1947.zip. As REGRAS DE TRABALHO continuam valendo.
+
+O QUE A PARTE 9 ENTREGOU
+- www/fight.js: tabela HG (armas 0-19) com R (angulo de repouso), H (mao da frente), B/BO/BA (2a mao), S (angulo do golpe), A (caminho da mao no golpe), M/AR/BM (mira), k (escala). Funcoes hgOk e wAng; pose() usa HG para mao da frente e de tras; body() usa wAng suavizado (f._wa) e redesenha as maos por cima da arma.
+- Jeitos: ombro (Machado, Martelo 2 maos, Picareta, Taco 2 maos), guarda diagonal (Espada), baixa/estocada (Adaga, Tridente 2 maos), mirando no alvo (Arco com corda, Pistola, Cajado, Chamas, Gelo, Raio, Cetro; tambem ao usar poderes), Escudo na frente, Katana 2 maos, Guitarra atravessada, Livro no peito, Luvas em guarda de boxe com jab alternado, Bomba levantada.
+- Armas personalizadas (id >= 20) e bloqueio com armas (exceto Escudo) usam o jeito antigo. Versao 1.9.47 (custom.js, fight.js, package.json); README atualizado.
+
+TESTADO
+- node --check; 60 lutas reais em tools/sim (0 erros JS, todas terminam); render real no Chromium das 20 armas parado/golpe (folhas de pose conferidas por imagem).
+
+NAO TESTADO
+- Aparelho real; fluidez da animacao em movimento (so quadros parados); Livro/Luvas/Bomba em ataque continuo; golpes alternados em PvP; finalizacoes (cenas) com as novas poses; armas personalizadas.
+- Alcance visual x hitbox: o golpe corpo a corpo nao mudou, so o desenho.
+
+PENDENTE
+- Ajustar numeros de HG se alguma pegada nao agradar (um objeto por arma, facil de editar).
+- Multiplicador por dificuldade ou ajuste da IA; mais sementes na validacao.

@@ -1,0 +1,19 @@
+BRARESULTS - NOVAS IDEIAS, PARTE 1b CONCLUIDA (DESPERTAR ESCOLHIVEL) - app v1.9.49
+================================================================
+Como usar: cole este arquivo + braresults-novas-ideias-parte1a-concluida-v1948.txt + braresults-novas-ideias-3-partes.txt + os TXT das armas 1 a 9 no inicio de um novo chat e anexe o braresults-app-v1949.zip. As REGRAS DE TRABALHO continuam valendo. Proximo: Parte 2 (opcao Aleatorio em arma, acessorio, finalizacao, despertar e mapa) ou Parte 3 (pular finalizacao + contador de FPS), que e independente.
+
+O QUE A 1b ENTREGOU (www/fight.js)
+- Variaveis AW/AW2/AWE ('auto' = awKind do candidato, '' = nenhum, ou chave de AWD). Persistidas em ST 'sel' (ausente => 'auto'); awOk/awChk invalidam chave que nao existe mais; awRes(v,c) resolve o valor.
+- UI: dslot(w) (w=1,2,3=CPU) ocupa a linha inteira (nomes longos nao cortam); tela screenAw (carrossel: Do candidato / Nenhum / cada AWD, com icone awIc e descricao d); handlers dslot, anav, aok; pback tambem limpa AWP.
+- start(): apos FT.push(P,E), se nao for treino, ap(P,AW) e ap(E,pvp?AW2:AWE) so trocam f.aw/awT/ulU (awC continua o do mk = recarga normal). HUD (mkCtl) fora do treino usa awRes(AW/AW2) (a luta ainda nao existe quando o HUD e montado). Treino: editor intacto.
+- Renomeados (so o campo n): flavio = "Frenesi Brasileira", lula = "Tempo Caótico"; comentario do fight.js e README (secao atual) atualizados; historico antigo e tools/balance/fight.orig.js mantidos.
+- Removido o aviso "Despertar disponivel" do card(). Tela de carregamento mostra "🔥 nome" do despertar de cada lado.
+- Versao 1.9.49 (custom.js, fight.js, package.json); README atualizado.
+
+TESTADO
+- node --check; Chromium (copia sim): Lula auto => lula com botao; Lula Nenhum => sem aw e sem botao; X com lula => aw lula com botao; Lula com flavio => flavio; CPU com flavio => awakena e usa o poder final (awT>0, ulU=1); PvP J2 lula / J1 nenhum; 0 erros JS. Regressao da 1a refeita (finalizacao da CPU ok). tools/sim: 8 lutas, 0 erros. PNGs: previa-parte1b-menu / -menu-cpu / -escolha-despertar.
+
+NAO TESTADO
+- Aparelho real/toque; despertares personalizados (BRC.AWU, BRC.awb) escolhidos em outro candidato; cutscene do poder final com despertar trocado, visual; jogo salvo real da versao anterior (so conferi ?? 'auto'); atalhos de teclado m[7]/m[8] em "Nenhum" (so conferido que f.aw vazio faz awaken/ult retornarem); tela de carregamento com mini-card do despertar (so por codigo).
+- Equilibrio: nao mexi em numeros; AWD[k].p/u (flavio .2 / 80 dano; lula .15 / 18 dano x raios) continuam como estavam.
+- Decisao a confirmar: despertar da CPU padrao = Aleatorio (como antes) em vez de sempre ter um.

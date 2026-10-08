@@ -1,0 +1,18 @@
+BRARESULTS - NOVAS IDEIAS, PARTE 3 CONCLUIDA (PULAR FINALIZACAO + CONTADOR DE FPS) - app v1.9.51
+================================================================
+As 3 partes do arquivo braresults-novas-ideias-3-partes.txt estao concluidas (1a v1.9.48, 1b v1.9.49, 2 v1.9.50, 3 v1.9.51). As REGRAS DE TRABALHO continuam valendo para o que vier depois.
+
+O QUE A PARTE 3 ENTREGOU (www/fight.js)
+- OPT.fsk: 's' sempre mostrar, 'p' permitir pular (padrao), 'x' sempre pular; OPT.fps: 'n' (padrao) / 's'. Controles em Opcoes > "Finalizacao e desempenho" (sg 'fsk' e 'fps', mesmo handler 'opt').
+- HUD: botao #fs "⏭ Pular" (escondido ate haver finalizacao) e span #fgfps dentro de #fgt. fsShow(v) controla o botao; mostrado em ko() quando a finalizacao comeca e escondido em finEnd.
+- finEnd(F): fim natural e pulo (aplica F.wi, fin=null, limpa FP, rst=2, rt=1.3, l.dead=1, l.hid=1 exceto Katana no fim natural, esconde o botao). skipFin(): SFX.stop(), SFX.win(F.good), finEnd, l.hid=1, FH=SK=null, FS2 limpo, shk=0. fin.good = pvp||pw (gravado em ko para todas as finalizacoes).
+- 'Sempre pular': ko() nao chama finStart; vai direto ao SFX.win.
+- fpsU(t) no inicio do loop: conta quadros, atualiza a cada 500 ms, nao conta em pausa; cor por faixa.
+- Versao 1.9.51 (custom.js, fight.js, package.json); README atualizado.
+
+TESTADO
+- node --check; Chromium (sim copy): para as 5 finalizacoes (Socos, Katana, Raio, Caes, Bomba) pulando no inicio, no meio e quase no fim: fin=null, rst=2, botao escondido, FH/SK/FS2/FP limpos, proximo round comeca e o ponto da vitoria fica 1; 'Sempre pular' => sem cena (rst=2); FPS ligado mostra "60 FPS" e desligado esconde; render real (sem canvas falso): botao e FPS visiveis durante a Katana e, apos clicar, comeca o ROUND 2; 0 erros JS. tools/sim: 12 lutas, 0 erros. PNGs: previa-parte3-pular-fps / previa-parte3-depois-de-pular.
+
+NAO TESTADO
+- Aparelho real/toque e FPS real em celular; finalizacoes personalizadas (BRC.FO, id>=100) puladas (BRC.fstep pode manter estado proprio); pular em PvP/treino (so por codigo); partida completa ate a tela de resultado depois de pular o ultimo round; som de vitoria ao pular (so confere que SFX.win e chamado); botao Pular com 'Sempre mostrar' (so por codigo).
+- Decisao a confirmar: pulo esconde sempre o perdedor (inclusive na Katana, onde na cena natural o corpo fica no chao).

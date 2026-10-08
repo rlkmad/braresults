@@ -4,3 +4,5 @@ Colocar um arquivo com o nome do som substitui o reaproveitamento. Arquivo ausen
 Parte 3 (v1.8.6): swing_<familia> (16) e hit_<cut|blunt|shot|elem>_<l|m|h> (12), splat. Tabelas SW e HF em sfx.js ligam cada arma ao seu som.
 Parte 4 (v1.8.7): pw_<id> (60, um por poder; id = 7o item de cada poder em fight-data.js), pw_aw (camada extra quando despertado), awaken, ult1 a ult5. SFX.pw/awaken/ult tocam o arquivo; sem arquivo caem no som sintetizado.
 Parte 5 (v1.8.9): ko, boom e boom_b (variacoes), splat_big, win_good, win_bad (vinhetas) e fin1 a fin5 (uma por finalizacao, com a duracao da cena). SFX.fin toca ko + finK, agenda splats (sangue) e a vinheta nos mesmos instantes de antes; sem arquivo cai no sintetizado.
+v1.9.45: swing_axe, swing_hammer, swing_pick, swing_staff, swing_book, swing_scepter (Machado, Martelo, Picareta, Cajado, Livro, Cetro Real). Gerados por tools/sfx_armas.py. Agora as 20 armas tem swing proprio.
+v1.9.46: hit_w0..hit_w19 (impacto por arma), fx_martelo, fx_bomba, fx_queima, fx_gelo, fx_tontura, fx_katana, fx_tridente, fx_picareta, fx_flecha, fx_bala. Gerados por tools/sfx_armas8.py. SFX.hit toca hit_w<arma>; sem arquivo cai nas familias.
