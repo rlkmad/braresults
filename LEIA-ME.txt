@@ -1,0 +1,17 @@
+COMO GERAR O APK ASSINADO DO BRARESULTS
+
+1. Crie conta gratuita em github.com (se ainda não tiver).
+2. Crie um repositório novo (privado serve) e envie TODO o conteúdo desta pasta
+   (inclusive a pasta oculta .github). Pelo site: "Add file > Upload files".
+   Dica: a pasta .github pode não subir arrastando; se não subir, crie o arquivo
+   manualmente em "Add file > Create new file" com o nome
+   .github/workflows/apk.yml e cole o conteúdo.
+3. Vá na aba Actions > "Build APK assinado" > Run workflow. Espere uns 5-8 min.
+4. Entre na execução concluída e baixe, em Artifacts, "Braresults-APK" (zip).
+   Extraia: dentro está Braresults.apk, já assinado.
+5. Instale no Redmi 10C.
+
+IMPORTANTE: baixe também "chave-de-assinatura-GUARDE" (release.jks). Para o app
+atualizar sobre versões antigas no futuro, a chave precisa ser a mesma. Depois
+guarde-a em Settings > Secrets > Actions com o nome KEYSTORE_B64
+(conteúdo do arquivo em base64: comando  base64 -w0 release.jks).
